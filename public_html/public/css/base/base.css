@@ -1,0 +1,11 @@
+* { /*El asterisco afecta a todos los elementos del CSS*/
+  box-sizing: border-box;
+  margin: 0rem auto;
+  padding: 0rem auto;
+}
+html {
+  font-size: 62.5%;
+}
+/*A partir de aquí, deberíamos usar sólamente rem dónde*/
+/*1 rem = 10px, 1.6rem = 16px, 3.85rem = 38.5px,*/
+/*y nos conviene ya que rem no es absoluto*/
