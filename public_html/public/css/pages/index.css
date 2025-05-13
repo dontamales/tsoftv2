@@ -66,17 +66,44 @@ body {
     
 }
 
- .footer {
+/* ==============================
+   Footer
+   ============================== */
+.footer {
+    background: #1F2937;
+    color: #fafafa;
+    padding: 1rem 0.5rem;
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 !important;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    max-width: none;
+}
+
+.footer--logo {
+    filter: brightness(0) invert(1);
+    width: 40px;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+
+/*.footer {
     background-color: #ffffff;
-    /* position: absolute;
+    position: absolute;
     bottom: 0;
     width: 100%;
     background-color: #333;
     color:#ffffff;
-     padding-bottom: 10%;  */
-  } 
+    padding-bottom: 10%;
+
+
+} 
 
 .footer--logo {
     width: 10%;
     height: auto;
-}
+}*/
