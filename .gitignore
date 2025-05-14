@@ -9,3 +9,6 @@ index.php
 # Carpetas
 webalizer/
 xampp/
+
+#Esta carpeta no se debe eliminar
+public_html/private/

@@ -2,7 +2,7 @@
     background-color: #8DA6C9;
 }
 
-.main__grid--sidebar{
+.main__grid--sidebar {
     width: 60%;
     height: 100%;
 }
@@ -37,13 +37,37 @@ body {
     overflow-y: auto;
     border: 1px solid #ddd;
     z-index: 1000;
-  }
-  
-  .resultado-busqueda {
+}
+
+.resultado-busqueda {
     padding: 10px;
     cursor: pointer;
-  }
-  
-  .resultado-busqueda:hover {
+}
+
+.resultado-busqueda:hover {
     background-color: #ddd;
-  }
+}
+
+/* ==============================
+   Footer
+   ============================== */
+.footer {
+    background: #1F2937;
+    color: #fafafa;
+    padding: 1rem 0.5rem;
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 !important;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    max-width: none;
+}
+
+.footer--logo {
+    filter: brightness(0) invert(1);
+    width: 40px;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
