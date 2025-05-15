@@ -197,7 +197,7 @@ $conn->query("SET time_zone='-06:00'");
             </div>
           </div>
       </div>
-      
+
 
     </main>
 
@@ -288,7 +288,7 @@ $conn->query("SET time_zone='-06:00'");
       xhr.send();
     }
 
-    async function generateWordDocument(folderPath, selectedTeacher, teacherId, startDate, endDate) { // Cambié teacherIndex a teacherId
+    /*async function generateWordDocument(folderPath, selectedTeacher, teacherId, startDate, endDate) { // Cambié teacherIndex a teacherId
       const url = '../php/generarConstanciaSinodalia.php';
       const params = new URLSearchParams({
         folderPath: folderPath,
@@ -308,6 +308,19 @@ $conn->query("SET time_zone='-06:00'");
       } else {
         //console.error("Error al generar el documento y guardar en la carpeta.");
       }
+    }*/
+
+    function generateWordDocument(folderPath, selectedTeacher, teacherId, startDate, endDate) {  //JH20250514
+      const params = new URLSearchParams({
+        folderPath: folderPath,
+        profesor: selectedTeacher,
+        profesorId: teacherId,
+        startDate: startDate,
+        endDate: endDate
+      }).toString();
+
+      window.location.href = `../php/generarConstanciaSinodalia.php?${params}`;
+
     }
   </script>
 

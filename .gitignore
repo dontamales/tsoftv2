@@ -4,7 +4,6 @@ dawr.rar
 htdocs.rar
 favicon.ico
 applications.html
-index.php
 
 # Carpetas
 webalizer/
@@ -12,3 +11,4 @@ xampp/
 
 #Esta carpeta no se debe eliminar
 public_html/private/
+public_html/public/assets/archivos
