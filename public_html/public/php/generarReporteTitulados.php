@@ -41,11 +41,16 @@ if (
     $fecha_Egreso_Reporte_Titulados = $_GET['fecha_Egreso_Reporte_Titulados'];
 
     // SQL para obtener egresados en ese rango de fechas
+    //JH20252105 Cambios en la consulta del reporte de titulados
+    // proVo.Nombre_Profesor   AS 'Vocal Suplente',
+    // proP.Nombre_Profesor    AS 'Presidente',
+    // proS.Nombre_Profesor    AS 'Secretario',
+    // proV.Nombre_Profesor    AS 'Vocal'
     $sql = "SELECT *, 
-    proVo.Nombre_Profesor AS 'Vocal Suplente',
-    proV.Nombre_Profesor AS 'Vocal',
-    proS.Nombre_Profesor AS 'Secretario',
-    proP.Nombre_Profesor AS 'Presidente'
+    proVo.Nombre_Profesor   AS 'Presidente',
+    proP.Nombre_Profesor    AS 'Secretario',
+    proS.Nombre_Profesor    AS 'Vocal',
+    proV.Nombre_Profesor    AS 'Vocal Suplente'
     FROM egresado e
     LEFT JOIN proyecto p ON e.Fk_Proyecto_Egresado = p.Id_Proyecto
     LEFT JOIN libro l ON e.Fk_Formato_Libro_Asignado_Egresado = l.Id_Libro
