@@ -330,6 +330,49 @@ $anio = date("Y");
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- ===== Desasignar Foja ===== -->
+                 <!-- HJ20250616 Seccion para desasignar fojas dandole un Libro y Seleccionando una Foja -->
+                <div class="m-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="btn" data-bs-toggle="collapse" href="#collapseDesasignarFoja">
+                                <h5 class="card-title"><i class="m-1 bi bi-chevron-down"></i>Desasignar Foja</h5>
+                            </a>
+                        </div>
+                        <div id="collapseDesasignarFoja" class="collapse" data-bs-parent="#accordion">
+                            <div class="card-body">
+                                <p class="card-text">En esta sección podrá desasignar una foja que ya esté asignada a un egresado.</p>
+                                <form id="formDesasignarFoja">
+                                    <div class="mb-3">
+                                        <label for="selectLibroDes" class="form-label">Seleccione Libro:</label>
+                                        <select id="selectLibroDes" class="form-select" required>
+                                            <option value="">-- Elija el libro --</option>
+                                            <?php
+                                            $resLibrosDes = $conn->query("
+                                SELECT Id_Libro, Descripcion_Libro FROM libro ORDER BY Id_Libro ASC
+                            ");
+                                            while ($filaDes = $resLibrosDes->fetch_assoc()) {
+                                                echo "<option value='{$filaDes['Id_Libro']}'>{$filaDes['Descripcion_Libro']}</option>";
+                                            }
+                                            $resLibrosDes->free();
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="selectFojaDes" class="form-label">Número de Foja:</label>
+                                        <select id="selectFojaDes" class="form-select" required>
+                                            <option value="">-- Elija la foja --</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" id="btnDesasignarFoja" class="btn btn-danger">Desasignar Foja</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Fin Desasignar Foja -->
                 <?php
             endif;
                 ?>
@@ -356,6 +399,7 @@ $anio = date("Y");
     </script>
     <script src="../js/tablaLibro.js"></script>
     <script src="../js/tablaFojas.js"></script>
+    <script src="../js/desasignarFoja.js"></script>
 
     <?php if ($rol != 6) : ?>
         <script src="../js/libros.js"></script>
