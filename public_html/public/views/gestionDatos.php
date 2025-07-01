@@ -65,7 +65,7 @@ $cuenta = $conteo['conteo'] ?? 0;
         <div class="page-header pt-3">
           <p class="h1">Gestión de registros</p>
           <hr>
-          <p class="h3">Correos restantes de hoy: <?php echo (100 - $cuenta); ?></p>
+          <p class="h3">Correos enviados el día de hoy: <?php echo ($cuenta); ?></p>
         </div>
         <hr />
         <?php if (isset($_SESSION['message'])) : ?>

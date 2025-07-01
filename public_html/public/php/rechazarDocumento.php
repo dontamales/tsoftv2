@@ -4,7 +4,7 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 4, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
-require_once 'enviarCorreoFunciones.php';
+require_once 'enviarCorreos.php';
 
 date_default_timezone_set('America/Denver');
 
@@ -16,10 +16,11 @@ $idEgresado = $_POST['idEgresado'];
 $observaciones = $_POST['observaciones'];
 $anexo_III_Rechazado = 0;
 
-if (verificarLimiteCorreo($conn) >= 100) {
-    echo json_encode(['success' => false]);
-    exit();
-}
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+// if (verificarLimiteCorreo($conn) >= 100) {
+//     echo json_encode(['success' => false]);
+//     exit();
+// }
 
 // Query para obtener los datos del egresado
 $stmt = $conn->prepare("SELECT * FROM egresado JOIN usuario ON egresado.Fk_Usuario_Egresado = usuario.Id_Usuario WHERE Num_Control = ?");
@@ -68,7 +69,7 @@ if ($result) {
             'Su documento <strong>' . $documentoData["Descripcion_Documentos_Pendientes"] . '</strong> ha sido rechazado por un administrador con las observaciones: "<strong>'. $observaciones . '</strong>", favor de verificar dicho documento y volverlo a subir en la plataforma de http://login.tsoft.website/.'
         );
 
-        if ($response->statusCode() == 202) {
+        if ($response->statusCode == 200) {
             echo json_encode(['success' => true]);
             $count = 3;
         } else {

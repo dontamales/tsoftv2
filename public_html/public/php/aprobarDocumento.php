@@ -4,7 +4,7 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 4, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
-require_once 'enviarCorreoFunciones.php';
+require_once 'enviarCorreos.php';
 
 date_default_timezone_set('America/Denver');
 
@@ -64,10 +64,11 @@ $documentoData = $result->fetch_assoc();
     }
 
     if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] == 5) {
-        if (verificarLimiteCorreo($conn) >= 100) {
-            echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
-            exit();
-        }
+        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+        // if (verificarLimiteCorreo($conn) >= 100) {
+        //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
+        //     exit();
+        // }
         $stmt_Estatus = $conn->prepare("UPDATE egresado 
         SET FK_Estatus_Egresado = ?, Anexo_III_Egresado = ? 
         WHERE Num_Control = ?
@@ -84,10 +85,11 @@ $documentoData = $result->fetch_assoc();
 
         $stmt_Estatus->close();
     } else if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] =! 5){
-        if (verificarLimiteCorreo($conn) >= 100) {
-            echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
-            exit();
-        }
+        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+        // if (verificarLimiteCorreo($conn) >= 100) {
+        //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
+        //     exit();
+        // }
         $stmt_Estatus = $conn->prepare("UPDATE egresado 
         SET Anexo_III_Egresado = ? 
         WHERE Num_Control = ?
@@ -146,7 +148,7 @@ $documentoData = $result->fetch_assoc();
                 '<strong>Buen día, su ' . $documentoData["Descripcion_Documentos_Pendientes"] . ' ha sido aprobado por un administrador</strong>, favor de acudir a Coordinación de Titulación a realizar el pago de su autorización de examen profesional que a la fecha de ' . $fecha . ' es de $' . $precio_Examen_Profesional . ' MXN, debe llevar su <b>"Constancia de no inconveniencia"</b> y su <b>"Solicitud de acto de recepción profesional"</b>, además de la documentación que se le pide subir en la plataforma exceptuando la presentación y el trabajo final, favor de matenerse al pendiente mediante su correo registrado, si tiene documentos pendientes no olvide subirlos lo antes posible.'
             );
 
-            if ($response->statusCode() == 202) {
+            if ($response->statusCode == 200) { // Cambio de metodo a propiedad $response->statusCode() == 202 JH20250626
                 $count = 3;
                 $response = ['success' => true];
             } else {

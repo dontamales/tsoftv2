@@ -4,7 +4,7 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php';
-require_once 'enviarCorreoFunciones.php';
+require_once 'enviarCorreos.php';
 require_once 'actualizarEstatusFuncionesFormatoB.php';
 
 date_default_timezone_set('America/Denver');
@@ -16,10 +16,11 @@ use Ramsey\Uuid\Uuid;
 
 
 try {
-    if (verificarLimiteCorreo($conn) >= 100) {
-        echo json_encode(['success' => false, 'message' => 'No se ha generado ningún archivo ni se ha enviado ningún correo, se ha alcanzado el límite de 100 correos electrónicos diarios enviados, vuelva a intentarlo mañana.']);
-        exit;
-    }
+    // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+    // if (verificarLimiteCorreo($conn) >= 100) {
+    //     echo json_encode(['success' => false, 'message' => 'No se ha generado ningún archivo ni se ha enviado ningún correo, se ha alcanzado el límite de 100 correos electrónicos diarios enviados, vuelva a intentarlo mañana.']);
+    //     exit;
+    // }
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => 'Error al verificar el límite de correos electrónicos enviados.']);
     exit;
@@ -211,7 +212,7 @@ try {
                 $egresadoData['Carrera2'] = '';
             }
 
-            $correo_Entrega_Proyecto = trim($egresadoData['Correo_Proyecto_Departamento']);
+            $correo_Entrega_Proyecto = 'jesushinojo9@gmail.com'; // Correo de prueba, no lo olvides de cambiar cuando vayas a producción
 
             // Genera el token
             $uuid = Uuid::uuid4();
@@ -538,7 +539,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode(), [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) {
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
@@ -697,7 +698,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode(), [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) {
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
@@ -838,7 +839,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode(), [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) {
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
@@ -980,7 +981,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode(), [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) {
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
