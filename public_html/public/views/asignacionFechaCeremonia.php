@@ -56,7 +56,7 @@ $cuenta = $conteo['conteo'] ?? 0;
             </a>
             <div class="page-header pt-3">
                 <p class="h1">Lista de sustentantes con Anexo III aprobado</p>
-                <hr><p class="h3">Correos restantes de hoy: <?php echo (100-$cuenta);?></p>
+                <hr><p class="h3">Correos enviados el dia de hoy: <?php echo ($cuenta);?></p>
             </div>
             <p class="card-text">En esta sección se puede visualizar los sustentantes que ya tienen su anexo III aprobado y por lo tanto, están listos para la asignación de fecha de ceremonia.</p>
             <hr />

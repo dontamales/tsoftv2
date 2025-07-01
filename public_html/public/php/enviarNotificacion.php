@@ -2,7 +2,7 @@
 require_once("sesion.php");
 require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
-require_once 'enviarCorreoFunciones.php'; // Asegúrate de que esta ruta sea la correcta
+require_once 'enviarCorreos.php'; // Asegúrate de que esta ruta sea la correcta
 
 date_default_timezone_set('America/Denver');
 

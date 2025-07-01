@@ -4,6 +4,7 @@
         "sendgrid/sendgrid": "^8.0",
         "vlucas/phpdotenv": "^5.5",
         "phpoffice/phpword": "^1.1",
-        "ramsey/uuid": "^4.7"
+        "ramsey/uuid": "^4.7",
+        "phpmailer/phpmailer": "^6.10"
     }
 }

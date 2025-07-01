@@ -4,7 +4,7 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once "../../private/conexion.php";
 require_once '../vendor/autoload.php';
-require_once 'enviarCorreoFunciones.php';
+require_once 'enviarCorreos.php';
 
 date_default_timezone_set('America/Denver');
 
@@ -188,10 +188,11 @@ function registrarUsuario($conn, $fk_roles, $nombres, $apellidos, $correo, $hash
         die();
     }
 
-    if (verificarLimiteCorreo($conn) >= 100) {
-        echo json_encode(["message" => "Límite de de 100 correos electrónicos diarios alcanzados."]);
-        die();
-    }
+    // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+    // if (verificarLimiteCorreo($conn) >= 100) {
+    //     echo json_encode(["message" => "Límite de de 100 correos electrónicos diarios alcanzados."]);
+    //     die();
+    // }
 
     if (empty($fk_roles) || empty($nombres) || empty($apellidos) || empty($correo) || empty($password)) {
         echo json_encode(["message" => "Error: Todos los campos son obligatorios."]);
@@ -230,7 +231,7 @@ function registrarUsuario($conn, $fk_roles, $nombres, $apellidos, $correo, $hash
 
                         "Hola, " . $nombres . " " . $apellidos . " se ha registrado su usuario con rol administrativo en T-Soft, la plataforma de Coordinación de Titulación. <br /><br />Correo electrónico: <strong>" . $correo . "</strong><br />Contraseña: <strong>" . $password . "</strong><br /><br />A continuación, acceda al portal http://login.tsoft.website/ para cambiar su contraseña y seguir con su proceso de titulación."
                     );
-                    if ($response->statusCode() == 202) {
+                    if ($response->statusCode == 200) {
                         $count = 3;
                         echo json_encode(["message" => "Correo electrónico de bienvenida enviado correctamente y usuario registrado exitosamente."]);
                         die();
@@ -268,7 +269,7 @@ function registrarUsuario($conn, $fk_roles, $nombres, $apellidos, $correo, $hash
 
                             "Hola, " . $nombres . " " . $apellidos . " se ha registrado su usuario en T-Soft, la plataforma de Coordinación de Titulación. <br /><br />Número de control: <strong>" . $numero_control . "</strong><br />Correo electrónico: <strong>" . $correo . "</strong><br />Contraseña: <strong>" . $password . "</strong><br /><br />A continuación, acceda al portal http://login.tsoft.website/ para cambiar su contraseña y seguir con su proceso de titulación."
                         );
-                        if ($response->statusCode() == 202) {
+                        if ($response->statusCode == 200) {
                             $count = 3;
                             echo json_encode(["message" => "Correo electrónico enviado correctamente y sustentante registrado exitosamente."]);
                             die();
@@ -341,7 +342,7 @@ function registrarUsuarioExcel($conn, $fk_roles, $nombres, $apellidos, $correo, 
 
                                 "Hola, " . $nombres . " " . $apellidos . " se le ha registrado su usuario con el número de control: <strong>" . $numero_control . "</strong>, correo: <strong>" . $correo . "</strong> y su contraseña: <strong>" . $password . "</strong> a continuación, acceda al portal http://login.tsoft.website/ para seguir con su proceso de titulación."
                             );
-                            if ($response->statusCode() == 202) {
+                            if ($response->statusCode == 200) {
                                 $count = 3;
                                 return ['message' => 'Usuario registrado y correo enviado exitosamente.', 'status' => true];
                             } else {

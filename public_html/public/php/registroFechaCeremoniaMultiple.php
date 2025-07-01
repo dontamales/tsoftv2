@@ -3,7 +3,7 @@ require_once 'sesion.php'; #VERIFICACIÓN DE SESIÓN
 require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
-require_once 'enviarCorreoFunciones.php';
+require_once 'enviarCorreos.php';
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
 
 date_default_timezone_set('America/Denver');
@@ -23,10 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $anexo_III_Egresado = 1;
     $formato_B_Aprobado_Egresado = 1;
 
-    if (verificarLimiteCorreo($conn) == 100) {
-        echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
-        exit();
-    }
+    // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+    // if (verificarLimiteCorreo($conn) == 100) {
+    //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
+    //     exit();
+    // }
 
     $conn->begin_transaction();
 
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $count = 0;
 
             do {
-                $response_e = enviarCorreo(
+                $response = enviarCorreo(
                     $conn,
 
                     $egresadoData['Correo_Usuario'],
@@ -73,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'La fecha y hora de su ceremonia de titulación es la siguiente: <strong>'. $egresadoData['Fecha_Hora_Ceremonia_Egresado'] .'</strong>, en caso de cualquier cambio inesperado favor de estar atento a su correo y a la plataforma de http://login.tsoft.website/.'
                 );
 
-                if ($response_e->statusCode() == 202) {
+                if ($response->statusCode == 200) {
                     $count = 3;
                 } else {
                     $count++;

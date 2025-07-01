@@ -4,17 +4,17 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php'; #CONEXIÓN A LA BASE DE DATOS
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
-require_once '../php/enviarCorreoFunciones.php'; #FUNCIONES PARA ENVIAR CORREOS
+require_once '../php/enviarCorreos.php'; #FUNCIONES PARA ENVIAR CORREOS
 
 date_default_timezone_set('America/Denver');
 
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-
-if (verificarLimiteCorreo($conn) >= 100) {
-    $_SESSION['error'] = "Cantidad máxima de correos enviados, intentelo de nuevo el día de mañana.";
-}
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+// if (verificarLimiteCorreo($conn) >= 100) {
+//     $_SESSION['error'] = "Cantidad máxima de correos enviados, intentelo de nuevo el día de mañana.";
+// }
 
 if (isset($_POST['restablecerPasswordCorreo']) && isset($_POST['restablecerPasswordNuevo']) && isset($_POST['restablecerPasswordConfirmar'])) {
 
@@ -54,7 +54,7 @@ if (isset($_POST['restablecerPasswordCorreo']) && isset($_POST['restablecerPassw
 
                         "Hola, " . $row["Nombres_Usuario"] . " " . $row["Apellidos_Usuario"] . " se ha actualizado su contraseña. <br><br>Su nueva contraseña es: <strong>" . $nuevaContraseña . " </strong><br><br>A continuación, acceda al portal http://login.tsoft.website/ para seguir con su proceso de titulación."
                     );
-                    if ($response->statusCode() == 202) {
+                    if ($response->statusCode == 200) {
                         $_SESSION['success'] = "Contraseña actualizada correctamente, se ha enviado un correo electrónico a ". $row["Correo_Usuario"] ." con su nueva contraseña.";
                         $count = 3;
                     } else {
