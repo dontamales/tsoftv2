@@ -1,3 +1,8 @@
+// Creamos un arreglo para almacenar los libros y titulaciones disponibles de manera global JH20250701
+// Esto nos permitirá acceder a ellos en diferentes partes del código sin necesidad de volver a hacer solicitudes
+var librosDisponibles = [];
+var titulacionesDisponibles = [];
+
 $(document).ready(function () {
     // Variables para controlar la paginación
     var pageSize = 7;
@@ -90,6 +95,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            librosDisponibles = data; // Almacena los datos de libros disponibles JH20250701
             var select = $("#libroSelect");
 
             // Agrega la opción "Selecciona una" al principio
@@ -115,6 +121,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            titulacionesDisponibles = data; // Almacena los datos de titulaciones disponibles JH20250701
             var select = $("#titulacionSelect");
 
             // Agrega la opción "Selecciona una" al principio
@@ -272,14 +279,36 @@ $(document).ready(function () {
         // Llenar la tabla con los resultados actuales
         $.each(resultados, function (index, resultado) {
             var fila = $("<tr>");
-            fila.append($("<td>").text(resultado.libro));
 
-            // Verificar si resultado.titulaciones es un array antes de usar join
+            // fila.append($("<td>").text(resultado.libro));
+
+            // Obtener nombre del libro usando su ID y asignar data-id JH20250701
+            var libro = librosDisponibles.find(l => l.idL == resultado.libro);
+            var nombreLibro = libro ? libro.nombreL : resultado.libro;
+            fila.append($("<td>").text(nombreLibro).attr("data-id", resultado.libro));
+
+            // Obtener nombres de titulaciones
+            var titulos = resultado.titulaciones;
+
+            // --- Versión anterior ---
+            /*
             if (Array.isArray(resultado.titulaciones)) {
                 fila.append($("<td>").text(resultado.titulaciones.join(', ')));
             } else {
-                // Si no es un array, mostrar el valor directamente
                 fila.append($("<td>").text(resultado.titulaciones));
+            }
+            */
+
+            // Mostrar los nombres legibles y guardar el primer ID como data-id JH20250701
+            if (Array.isArray(titulos)) {
+                var nombresTitulaciones = titulos.map(id => {
+                    var t = titulacionesDisponibles.find(tt => tt.idL == id);
+                    return t ? t.nombreL : id;
+                });
+                fila.append($("<td>").text(nombresTitulaciones.join(', ')).attr("data-id", titulos[0]));
+            } else {
+                var t = titulacionesDisponibles.find(tt => tt.idL == titulos);
+                fila.append($("<td>").text(t ? t.nombreL : titulos).attr("data-id", titulos));
             }
 
             $("#resultadoTabla tbody").append(fila);
@@ -301,13 +330,15 @@ $(document).ready(function () {
 $(document).ready(function () {
     // Evento para obtener datos al hacer clic en una celda en Libro Seleccionado
     $('#resultadoTabla tbody').on('click', 'td:first-child', function () {
-        var idLibro = $(this).text();
+        // var idLibro = $(this).text();
+        var idLibro = $(this).data('id'); // Obtener el id del libro desde el atributo data-id JH20250701
         obtenerInformacionLibro(idLibro);
     });
 
     // Evento para obtener datos al hacer clic en una celda en Titulación a Asignar
     $('#resultadoTabla tbody').on('click', 'td:nth-child(2)', function () {
-        var idTitulacion = $(this).text();
+        // var idTitulacion = $(this).text();
+        var idTitulacion = $(this).data('id'); // Obtener el id de la titulación desde el atributo data-id JH20250701
         obtenerInformacionTitulacion(idTitulacion);
     });
 });
