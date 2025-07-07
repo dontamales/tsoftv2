@@ -18,7 +18,9 @@ $stmt = $conn->prepare("SELECT
     egresado.*, 
     anexo_i_ii.*, 
     carrera.*,
-    direccion.*, 
+    direccion.*,
+    f.Nombre_Formato_Foja,
+    f.Direccion_Archivo_Formato_Foja,
     egresados_documentos.*, 
     documentos_pendientes.*, 
     genero.*, 
@@ -40,7 +42,8 @@ FROM usuario
 JOIN egresado ON egresado.Fk_Usuario_Egresado = usuario.Id_Usuario 
 LEFT JOIN anexo_i_ii ON anexo_i_ii.Fk_Egresado_Anexo_I_II = egresado.Num_Control 
 JOIN carrera ON carrera.Id_Carrera = egresado.Fk_Carrera_Egresado 
-LEFT JOIN direccion ON direccion.Id_Direccion = egresado.Fk_Direccion_Egresado 
+LEFT JOIN direccion ON direccion.Id_Direccion = egresado.Fk_Direccion_Egresado
+LEFT JOIN formato_foja f ON egresado.Fk_Formato_Foja_Asignado_Egresado = f.Id_Formato_Foja
 LEFT JOIN egresados_documentos ON egresados_documentos.Fk_NumeroControl = egresado.Num_Control 
 LEFT JOIN documentos_pendientes ON documentos_pendientes.Id_Documentos_Pendientes = egresados_documentos.Fk_Documentos_Pendientes2 
 LEFT JOIN genero ON genero.Id_Sexo_Genero = egresado.Fk_Sexo_Egresado 
@@ -82,6 +85,9 @@ if ($datos['Numero_Equipo_Egresados'] == 1) {
     $datos['Nombre_Carrera_2'] = ''; 
 
 }
+
+$datos['Nombre_Formato_Foja'] = $datos['Nombre_Formato_Foja'] ?? null;
+$datos['Direccion_Foja_Asignada'] = $datos['Direccion_Archivo_Formato_Foja'] ?? null;
 
 echo json_encode($datos);
 
