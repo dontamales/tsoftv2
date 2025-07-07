@@ -270,7 +270,7 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
                 if (xhrVerificacion.status === 200) {
                     var response = JSON.parse(xhrVerificacion.responseText);
                     if (response.message === 'Usuario no tiene asignados archivos FOJA') {
-                        if (confirm("Se le asignaran documentos al titulado. Una vez aceptado no se podrán revertir los cambios. ¿Desea Asignar la FOJA?")) {
+                        if (confirm("Se asignarán documentos al titulado. Una vez aceptado, los cambios no se pueden revertir desde esta pantalla. En caso de una asignación incorrecta, puede desasignar la FOJA desde el módulo Gestión de Fojas > Desasignar Foja. ¿Desea asignar la FOJA?")) {
                             // Crear un objeto que contenga los datos que se enviarán al servidor
                             var data = {
                                 fkFormatoLibro: selectedLibro,
