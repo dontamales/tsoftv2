@@ -140,6 +140,8 @@ function generarTablaDocumentos(documentosTotales) {
     aLink.href = row.Direccion_Archivo_Egresados_Documentos;
     aLink.textContent = row.Descripcion_Documentos_Pendientes;
     tdDocumento.appendChild(aLink);
+    aLink.target = "_blank"; // Abrir en una nueva pestaña JH20250707
+    aLink.rel = "noopener noreferrer"; // Buena práctica de seguridad JH20250707
     tr.appendChild(tdDocumento);
 
     const tdEstado = document.createElement("td");
@@ -257,6 +259,28 @@ function rellenarFormatoB(datos) {
     newRow1.append($("<td>").text("No hay archivo"));
   }
   tbody1.append(newRow1);
+
+  // Mostrar FOJA asignada JH20250707
+  const fojaContainer = document.getElementById("fojaAsignadaExpediente");
+  fojaContainer.innerHTML = "";
+
+  if (datos.Direccion_Foja_Asignada && datos.Direccion_Foja_Asignada.trim() !== "") {
+    const link = document.createElement("a");
+    link.href = datos.Direccion_Foja_Asignada;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = datos.Nombre_Formato_Foja || "Ver FOJA";
+
+    fojaContainer.appendChild(link);
+    fojaContainer.style.color = "";
+    fojaContainer.style.fontWeight = "normal";
+    fojaContainer.style.fontStyle = "normal";
+  } else {
+    fojaContainer.textContent = "Sin asignación de FOJA";
+    fojaContainer.style.color = "red";
+    fojaContainer.style.fontWeight = "bold";
+    fojaContainer.style.fontStyle = "italic";
+  }
 
   cargarDatosDocumentosExpedienteEgresado();
 

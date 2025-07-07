@@ -15,3 +15,5 @@ public_html/private/config/.env
 public_html/private/.htaccess
 public_html/private/private.zip
 public_html/public/assets/archivos
+public_html/public/assets/archivos.zip
+public_html/public/assets/rebuilt.archivos.zip

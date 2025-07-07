@@ -312,6 +312,10 @@ $conn->query("SET time_zone='-06:00'");
                 <br>
                 <hr>
                 <p class="h2">Documentos entregados de sustentante</p><br>
+                <div style="margin-top: -0.5rem; margin-bottom: 1rem;">
+                  <span class="fw-bold">FOJA asignada:</span>
+                  <span id="fojaAsignadaExpediente" style="margin-left: 0.5rem;"></span>
+                </div>
                 <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
                   <table class="table table-bordered table-hover table-striped" id="tabla-egresadosDocumentosEntregadosExp">
                     <thead>
