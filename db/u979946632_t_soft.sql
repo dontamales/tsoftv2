@@ -5408,6 +5408,22 @@ CREATE TABLE `egresado` (
   `Fk_Formato_Foja_Asignado_Egresado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `informacion_personal` (
+  `PkFk_Num_Control` varchar(12) NOT NULL,
+  `CURP` varchar(18) NOT NULL,
+  `DNI` varchar(20) DEFAULT NULL,
+  `ORCID` varchar(19) DEFAULT NULL,
+  `Fecha_Nacimiento` date NOT NULL,
+  `Genero` varchar(10) NOT NULL,
+  `Pais` varchar(30) NOT NULL,
+  `Entidad` varchar(40) NOT NULL,
+  PRIMARY KEY (`PkFk_Num_Control`),
+  CONSTRAINT `fk_informacion_personal_egresado`
+    FOREIGN KEY (`PkFk_Num_Control`) REFERENCES `egresado`(`Num_Control`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Volcado de datos para la tabla `egresado`
 --
