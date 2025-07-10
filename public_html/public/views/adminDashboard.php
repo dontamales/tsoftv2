@@ -47,7 +47,8 @@ if ($rol == 2) : ?>
   <?php echo $menu; ?>
   <div class="main-container">
     <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
+      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
         <p class="h1">Bienvenido a su pantalla de inicio</p>
       </div>
@@ -61,11 +62,10 @@ elseif ($rol == 3) : ?>
   <!-- Contenido específico del super administrador -->
   <?php echo $header; ?>
   <?php echo $menu; ?>
-
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
-
+    <main id="mainContent" class="content col ps-md-2 pt-2">
+      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
         <div class="d-flex justify-content-center align-items-center h-100">
           <p class="h1 text-center">Bienvenido a su pantalla de inicio</p>
@@ -151,7 +151,8 @@ elseif ($rol == 4) : ?>
   <?php echo $menu; ?>
   <div class="main-container">
     <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
+      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
         <p class="h1">Bienvenido a su pantalla de inicio</p>
       </div>
@@ -167,7 +168,8 @@ elseif ($rol == 5) : ?>
   <?php echo $menu; ?>
   <div class="main-container">
     <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
+      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
         <p class="h1">Bienvenido a su pantalla de inicio</p>
       </div>
@@ -183,7 +185,8 @@ elseif ($rol == 6) : ?>
   <?php echo $menu; ?>
   <div class="main-container">
     <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
+      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
         <p class="h1">Bienvenido a su pantalla de inicio</p>
       </div>
@@ -199,6 +202,8 @@ elseif ($rol == 6) : ?>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
 <!-- Scripts propios -->
+<!-- Sidebar JH20250710 -->
+<script src="../js/sidebar.js" defer></script>
 <script>
   window.onunload = function() {
     // Esto es para que cuando se cierre la pestaña, se cierre la sesión

@@ -12,6 +12,31 @@
   z-index: 1040;
 }
 
+
+/* Scrollbar personalizada */
+.dashboard-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-sidebar::-webkit-scrollbar-track {
+  background: var(--sidebar-bg); /* Mismo fondo que el sidebar */
+}
+
+.dashboard-sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--sidebar-active); /* Color que uses para resaltar */
+  border-radius: 4px;
+}
+
+.dashboard-sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Para Firefox */
+.dashboard-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sidebar-active) var(--sidebar-bg);
+}
+
 .dashboard-sidebar.show {
   left: 0;
 }
