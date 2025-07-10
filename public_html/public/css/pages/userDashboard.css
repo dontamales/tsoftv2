@@ -1,0 +1,15 @@
+/* Estilos para documentos */
+.task-badge.completed {
+    background-color: #28a745;
+    color: white;
+}
+
+.document-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Estilo para el botón de ayuda grande */
+.help-link {
+    grid-column: span 2;
+}
