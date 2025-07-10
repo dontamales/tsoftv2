@@ -1,0 +1,85 @@
+/* Main Content */
+.dashboard-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 0; /* Sin margen inicialmente */
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+/* Cuando la sidebar está visible, ajustar el contenido */
+.dashboard-main.shifted {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+}
+
+.main-header {
+  margin-bottom: 2rem;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.main-subtitle {
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+/* Option Cards */
+.option-card {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  height: 100%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.option-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.option-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #000000;
+}
+
+.option-description {
+  color: #6c757d;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--button-primary);
+  border-color: var(--button-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--button-secondary);
+  border-color: var(--button-secondary);
+}
+
+.btn-outline-primary {
+  color: var(--button-primary);
+  border-color: var(--button-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--button-primary);
+  color: white;
+}

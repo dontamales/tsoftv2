@@ -1,0 +1,74 @@
+.documents-card, .sinodales-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.documents-header, .sinodales-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+.documents-title, .sinodales-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #fff;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.table tr:hover {
+  background: #f9f9f9;
+}
+
+.badge {
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: white;
+}
+
+.bg-danger {
+  background-color: #dc3545;
+}
+
+.bg-warning {
+  background-color: #ffc107;
+}
+
+.btn-primary {
+  background-color: #5A8BA3;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.documents-footer, .sinodales-footer {
+  padding: 8px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.documents-footer a, .sinodales-footer a {
+  color: #3F6B83;
+  text-decoration: none;
+}
