@@ -46,11 +46,11 @@ if ($rol == 2) : ?>
   <?php echo $header; ?>
   <?php echo $menu; ?>
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
+    <main id="mainContent" class="content col ps-md-2 pt-2">
       <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
       <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
-        <p class="h1">Bienvenido a su pantalla de inicio</p>
+        <p class="h1 text-center">Bienvenido a su pantalla de inicio</p>
       </div>
       <hr />
     </main>
@@ -150,11 +150,11 @@ elseif ($rol == 4) : ?>
   <?php echo $header; ?>
   <?php echo $menu; ?>
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
+    <main id="mainContent" class="content col ps-md-2 pt-2">
       <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
       <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
-        <p class="h1">Bienvenido a su pantalla de inicio</p>
+        <p class="h1 text-center">Bienvenido a su pantalla de inicio</p>
       </div>
       <hr />
     </main>
@@ -167,11 +167,11 @@ elseif ($rol == 5) : ?>
   <?php echo $header; ?>
   <?php echo $menu; ?>
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
+    <main id="mainContent" class="content col ps-md-2 pt-2">
       <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
       <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
-        <p class="h1">Bienvenido a su pantalla de inicio</p>
+        <p class="h1 text-center">Bienvenido a su pantalla de inicio</p>
       </div>
       <hr />
     </main>
@@ -184,11 +184,11 @@ elseif ($rol == 6) : ?>
   <?php echo $header; ?>
   <?php echo $menu; ?>
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
+    <main id="mainContent" class="content col ps-md-2 pt-2">
       <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
       <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
-        <p class="h1">Bienvenido a su pantalla de inicio</p>
+        <p class="h1 text-center">Bienvenido a su pantalla de inicio</p>
       </div>
       <hr />
     </main>
