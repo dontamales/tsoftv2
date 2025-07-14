@@ -83,6 +83,14 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
       font-weight: bold;
     }
   </style>
+
+  <!-- CSS Personalizado -->
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components/sidebar.css">
+  <link rel="stylesheet" href="../css/components/cards.css">
+  <link rel="stylesheet" href="../css/components/tables.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/pages/adminDashboard.css">
 </head>
 
 <body class>
@@ -91,9 +99,10 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
   <?php echo $menu; ?>
 
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú
-        desplegable</a>
+    <main id="mainContent" class="content col ps-md-2 pt-2">
+      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú
+        desplegable</a> -->
       <div class="page-header pt-3">
         <h1 class="display-4">Bienvenido a su pantalla de inicio</h1>
       </div>
@@ -157,6 +166,8 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
   <!-- Scripts propios -->
+  <!-- Sidebar JH20250710 -->
+  <script src="../js/sidebar.js" defer></script>
   <script>
     window.onunload = function() {
       // Esto es para que cuando se cierre la pestaña, se cierre la sesión

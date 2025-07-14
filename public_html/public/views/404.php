@@ -21,6 +21,14 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../css/pages/baseTsoft.css" />
+
+  <!-- CSS Personalizado -->
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components/sidebar.css">
+  <link rel="stylesheet" href="../css/components/cards.css">
+  <link rel="stylesheet" href="../css/components/tables.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/pages/adminDashboard.css">
 </head>
 
 <body class>
@@ -46,7 +54,7 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
     
   </style>
   <div class="main-container text-center">
-    <main class="content col ps-md-2 pt-2">
+    <main id="mainContent" class="content col ps-md-2 pt-2">
       <h1 class="display-4">Error 404: Recurso no existente</h1>
       <p class="lead">La URL que has solicitado no existe, tiene permisos insuficientes, o hay problemas de red o servidor.</p>
       
@@ -72,6 +80,8 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
   <!-- Scripts propios -->
+  <!-- Sidebar JH20250710 -->
+  <script src="../js/sidebar.js" defer></script>
   <script>
     window.onunload = function() {
       // Esto es para que cuando se cierre la pestaña, se cierre la sesión
