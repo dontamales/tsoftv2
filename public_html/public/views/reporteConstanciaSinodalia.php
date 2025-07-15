@@ -51,7 +51,7 @@ $conn->query("SET time_zone='-06:00'");
         <i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable
       </a> -->
       <div class="page-header pt-3">
-        <p class="h1">Constancia de sinodalia</p>
+        <p class="h1 text-center">Constancia de sinodalia</p>
       </div>
       <hr />
       <div>
