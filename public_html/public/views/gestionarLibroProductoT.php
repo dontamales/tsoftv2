@@ -87,7 +87,7 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
                 <i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable
             </a> -->
             <div class="page-header pt-3">
-                <p class="h1">Gestionar Libro Asignado</p>
+                <p class="h1 text-center">Gestionar Libro Asignado</p>
             </div>
             <hr />
 

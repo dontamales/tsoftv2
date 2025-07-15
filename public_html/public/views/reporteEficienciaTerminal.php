@@ -65,7 +65,7 @@ if ($mes_actual >= 1 && $mes_actual <= 6) {
             <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
             <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
             <div class="page-header pt-3">
-                <p class="h1">Reporte de eficiencia terminal: <?php echo $periodo . " " . $ano_actual ?></p>
+                <p class="h1 text-center">Reporte de eficiencia terminal: <?php echo $periodo . " " . $ano_actual ?></p>
             </div>
             <hr />
             <div class="row">

@@ -45,7 +45,7 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
             <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
             <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
             <div class="page-header pt-3 text-center">
-                <p class="h1">Asignación de Fojas</p>
+                <p class="h1 text-center">Asignación de Fojas</p>
             </div>
             <hr />
             <div class="row">

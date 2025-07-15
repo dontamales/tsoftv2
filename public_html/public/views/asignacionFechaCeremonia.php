@@ -64,7 +64,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                 <i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable
             </a> -->
             <div class="page-header pt-3">
-                <p class="h1">Lista de sustentantes con Anexo III aprobado</p>
+                <p class="h1 text-center">Lista de sustentantes con Anexo III aprobado</p>
                 <hr><p class="h3">Correos enviados el dia de hoy: <?php echo ($cuenta);?></p>
             </div>
             <p class="card-text">En esta sección se puede visualizar los sustentantes que ya tienen su anexo III aprobado y por lo tanto, están listos para la asignación de fecha de ceremonia.</p>
