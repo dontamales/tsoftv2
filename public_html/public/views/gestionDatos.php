@@ -121,6 +121,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                             <th>Rol</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
+                            <th>No. Control</th> <!-- Nueva columna para buscar en la tabla de usuarios JH20250804 -->
                             <th>Correo</th>
                             <th>Fecha de creación</th>
                           </tr>
