@@ -200,6 +200,13 @@ if ($rol == 3) :
             <span>Constancia de sinodalias</span>
             </a>
             <a
+            href="reporteRegistroAutores.php"
+            class="list-group-item border-end-0 d-inline-block text-truncate"
+            data-bs-parent="#sidebar">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>Reporte del registro de autores</span>
+            </a>
+            <a
             href="reporteCohortesGeneracionales.php"
             class="list-group-item border-end-0 d-inline-block text-truncate"
             data-bs-parent="#sidebar">
