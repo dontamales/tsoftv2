@@ -1,7 +1,7 @@
 <?php
 require_once '../php/sesion.php';
 require_once '../php/auth.php';
-require_roles([2, 3, 5, 6]);
+require_roles([3]);
 include '../php/include/meta.php';
 include '../php/include/icons.php';
 include '../php/include/headerUsuarios.php';
