@@ -36,7 +36,7 @@ $conn->query("SET time_zone='-06:00'");
         <i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable
       </a>
       <div class="page-header pt-3">
-        <p class="h1">Reporte de registro de autores</p>
+        <p class="h1">Reportes de registro de autores</p>
       </div>
       <hr />
 
@@ -54,48 +54,112 @@ $conn->query("SET time_zone='-06:00'");
         <?php endif; ?>
 
         <div class="col-12 mb-3">
-          <div class="card mb-3">
-            <div class="card-header">
-              <h5 class="card-title">Generación de reporte de autores</h5>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Seleccione un rango de fechas para generar el reporte de autores titulados con producto tipo "Tesis".</p>
-              <div class="mb-3">
-                <form id="formato_Reporte_Autores" action="../php/generarReporteRegistroAutores.php">
-                  <div class="row mb-3">
-                    <label for="fecha_Ingreso_Reporte_Titulados" class="col-sm-2 col-form-label">Fecha de inicio:</label>
-                    <div class="col-sm-10">
-                      <input type="date" id="fecha_Ingreso_Reporte_Titulados" name="fecha_Ingreso_Reporte_Titulados" class="form-control" required>
-                    </div>
+          <!-- Tabs -->
+          <ul class="nav nav-tabs" id="tabsReportes" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-individual" data-bs-toggle="tab" data-bs-target="#panel-individual" type="button" role="tab">Individual</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-general" data-bs-toggle="tab" data-bs-target="#panel-general" type="button" role="tab">General</button>
+            </li>
+          </ul>
+
+          <div class="tab-content border-start border-end border-bottom p-3">
+
+            <!-- ======= PANEL INDIVIDUAL ======= -->
+            <div class="tab-pane fade show active" id="panel-individual" role="tabpanel">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <h5 class="card-title">Generación de reporte de autores (individual)</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Reporte individual con información escolar y personal del titulado.</p>
+                  <div class="mb-3">
+                    <form id="formato_Reporte_Individual_Autores" action="../php/generarReporteRegistroIndividualAutores.php">
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Fecha de inicio:</label>
+                        <div class="col-sm-10">
+                          <input type="date" name="fecha_Ingreso_Reporte_Titulados" class="form-control" required max="<?= date('Y-m-d'); ?>">
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Fecha de fin:</label>
+                        <div class="col-sm-10">
+                          <input type="date" name="fecha_Egreso_Reporte_Titulados" class="form-control" required max="<?= date('Y-m-d'); ?>">
+                        </div>
+                      </div>
+                      <div class="row m-5 text-center justify-content-center align-items-center">
+                        <div class="col"></div>
+                        <div class="col">
+                          <input class="btn btn-primary btn-block rounded-pill" type="submit" value="Generar reporte individual" />
+                        </div>
+                        <div class="col"></div>
+                      </div>
+                    </form>
                   </div>
-                  <div class="row mb-3">
-                    <label for="fecha_Egreso_Reporte_Titulados" class="col-sm-2 col-form-label">Fecha de fin:</label>
-                    <div class="col-sm-10">
-                      <input type="date" id="fecha_Egreso_Reporte_Titulados" name="fecha_Egreso_Reporte_Titulados" class="form-control" required>
-                    </div>
+                  <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                    <table class="table table-bordered table-hover table-striped" id="tabla-reporte-individual-autores">
+                      <thead>
+                        <tr>
+                          <th>Reporte No.</th>
+                          <th>Fecha creación</th>
+                          <th>Fecha inicio</th>
+                          <th>Fecha fin</th>
+                          <th>Descarga</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
                   </div>
-                  <div class="row m-5 text-center justify-content-center align-items-center">
-                    <div class="col"></div>
-                    <div class="col">
-                      <input id="btn_Generar_Reporte_Autores" class="btn btn-primary btn-block rounded-pill" name="btn_Generar_Reporte_Autores" type="submit" value="Generar reporte de autores" for="formato_Reporte_Autores" />
-                    </div>
-                    <div class="col"></div>
-                  </div>
-                </form>
+                </div>
               </div>
-              <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
-                <table class="table table-bordered table-hover table-striped" id="tabla-reporte-autores">
-                  <thead>
-                    <tr>
-                      <th>Reporte No.</th>
-                      <th>Fecha creación</th>
-                      <th>Fecha inicio</th>
-                      <th>Fecha fin</th>
-                      <th>Descarga</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
+            </div>  
+            <!-- ======= PANEL GENERAL ======= -->
+            <div class="tab-pane fade" id="panel-general" role="tabpanel">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <h5 class="card-title">Generación de reporte de autores (general)</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Seleccione un rango de fechas para generar el reporte de autores titulados con producto tipo "Tesis".</p>
+                  <div class="mb-3">
+                    <form id="formato_Reporte_Autores" action="../php/generarReporteRegistroAutores.php">
+                      <div class="row mb-3">
+                        <label for="fecha_Ingreso_Reporte_Titulados" class="col-sm-2 col-form-label">Fecha de inicio:</label>
+                        <div class="col-sm-10">
+                          <input type="date" id="fecha_Ingreso_Reporte_Titulados" name="fecha_Ingreso_Reporte_Titulados" class="form-control" required>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="fecha_Egreso_Reporte_Titulados" class="col-sm-2 col-form-label">Fecha de fin:</label>
+                        <div class="col-sm-10">
+                          <input type="date" id="fecha_Egreso_Reporte_Titulados" name="fecha_Egreso_Reporte_Titulados" class="form-control" required>
+                        </div>
+                      </div>
+                      <div class="row m-5 text-center justify-content-center align-items-center">
+                        <div class="col"></div>
+                        <div class="col">
+                          <input id="btn_Generar_Reporte_Autores" class="btn btn-primary btn-block rounded-pill" name="btn_Generar_Reporte_Autores" type="submit" value="Generar reporte de autores" for="formato_Reporte_Autores" />
+                        </div>
+                        <div class="col"></div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                    <table class="table table-bordered table-hover table-striped" id="tabla-reporte-autores">
+                      <thead>
+                        <tr>
+                          <th>Reporte No.</th>
+                          <th>Fecha creación</th>
+                          <th>Fecha inicio</th>
+                          <th>Fecha fin</th>
+                          <th>Descarga</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -110,11 +174,23 @@ $conn->query("SET time_zone='-06:00'");
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    window.onunload = function() {
-      window.location.replace("../index.php");
-    };
-  </script>
-  <script src="../js/obtenerReporteRegistroAutores.js"></script>
-</body>
+    window.onunload = function() { window.location.replace("../index.php"); };
 
+    // Validación simple de fechas para ambos formularios (opcional pero útil)
+    ['formato_Reporte_Autores','formato_Reporte_Individual_Autores'].forEach(id => {
+      const f = document.getElementById(id);
+      if (!f) return;
+      f.addEventListener('submit', e => {
+        const fi = f.querySelector('input[name="fecha_Ingreso_Reporte_Titulados"]').value;
+        const ff = f.querySelector('input[name="fecha_Egreso_Reporte_Titulados"]').value;
+        if (!fi || !ff) { e.preventDefault(); alert('Debes seleccionar ambas fechas.'); return; }
+        if (ff < fi)     { e.preventDefault(); alert('La fecha de fin no puede ser anterior a la de inicio.'); return; }
+      });
+    });
+  </script>
+
+  <!-- Scripts propios -->
+  <script src="../js/obtenerReporteRegistroAutores.js"></script>
+  <script src="../js/obtenerReporteRegistroIndividualAutores.js"></script>
+</body>
 </html>

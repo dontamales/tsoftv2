@@ -18713,6 +18713,16 @@ CREATE TABLE `reporte_registro_autores` (
   PRIMARY KEY (`Id_Reporte_Registro_Autores`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `reporte_registro_individual_autores` (
+  `Id_Reporte_Registro_Individual_Autores` INT(11) NOT NULL AUTO_INCREMENT,
+  `Fecha_Creacion_Reporte_Registro_Individual_Autores` DATETIME NOT NULL,
+  `Fecha_Ingreso_Reporte_Registro_Individual_Autores` DATE NOT NULL,
+  `Fecha_Egreso_Reporte_Registro_Individual_Autores` DATE NOT NULL,
+  `Direccion_Archivo_Reporte_Registro_Individual_Autores` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`Id_Reporte_Registro_Individual_Autores`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 --
 -- Volcado de datos para la tabla `libro_documentos`
 --
