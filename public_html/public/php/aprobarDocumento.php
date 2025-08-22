@@ -4,6 +4,8 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 4, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
+// require_once 'enviarCorreoFunciones.php';
 require_once 'enviarCorreos.php';
 
 date_default_timezone_set('America/Denver');
@@ -64,7 +66,7 @@ $documentoData = $result->fetch_assoc();
     }
 
     if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] == 5) {
-        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
         // if (verificarLimiteCorreo($conn) >= 100) {
         //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
         //     exit();
@@ -84,8 +86,9 @@ $documentoData = $result->fetch_assoc();
         $result_Estatus = $stmt_Estatus->get_result();
 
         $stmt_Estatus->close();
-    } else if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] =! 5){
-        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+        
+    } else if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] != 5){ //SC 08092025 Cambio de operador =! a != 
+        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
         // if (verificarLimiteCorreo($conn) >= 100) {
         //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
         //     exit();
@@ -173,5 +176,3 @@ $documentoData = $result->fetch_assoc();
     // Enviar la respuesta JSON
     echo json_encode($response);
 }
-
-
