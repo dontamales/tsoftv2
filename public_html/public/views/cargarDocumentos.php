@@ -10,6 +10,12 @@ include '../php/include/menuUsuarios.php'; #MENU DESPLEGABLE DE LA PÁGINA
 include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
 require_once '../php/formatoBData.php';
 
+// Documentos de residencias (los que ya no se piden) JH20250821
+const DOCS_RESIDENCIAS = [6, 7];
+
+// Productos exentos por ID (no requieren 6/7) JH20250821
+const PRODUCTOS_EXENTOS = [12, 14, 15, 16, 17];
+
 date_default_timezone_set('America/Denver');
 
 // Configuración de la zona horaria para esta sesión de MySQL
@@ -48,6 +54,16 @@ $documentos = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
 $usuarioId = $usuario["Num_Control"];
+
+// Filtra 6/7 si el producto es exento JH20250821
+$productoId = (int)$usuario["Fk_Tipo_Titulacion_Egresado"];
+$esExento = in_array($productoId, PRODUCTOS_EXENTOS, true);
+
+if ($esExento) {
+    $documentos = array_values(array_filter($documentos, function($d) {
+        return !in_array((int)$d['Id_Documentos_Pendientes'], DOCS_RESIDENCIAS, true);
+    }));
+}
 
 ?>
 

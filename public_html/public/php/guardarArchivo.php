@@ -6,6 +6,15 @@ require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php';
 require_once("formatoBData.php");
 
+// Documentos de residencias (los que ya no se piden) JH20250821
+const DOCS_RESIDENCIAS = [6, 7];
+
+// Productos exentos por ID (no requieren 6/7) JH20250821
+const PRODUCTOS_EXENTOS = [12, 14, 15, 16, 17];
+
+$productoId = (int)($usuario['Fk_Tipo_Titulacion_Egresado'] ?? 0);
+$esExento = in_array($productoId, PRODUCTOS_EXENTOS, true);
+
 date_default_timezone_set('America/Denver');
 
 // Configuración de la zona horaria para esta sesión de MySQL
@@ -98,7 +107,8 @@ function direccionesParaCuadros($inputId, $nombreArchivo, $usuarioId, $directori
     return $ruta_archivo;  // Devuelve la dirección del archivo
 }
 
-function guardarTokenAnexoIII($conn, $egresadoId, $documentoId, $direccion_archivo, $token)
+// function guardarTokenAnexoIII($conn, $egresadoId, $documentoId, $direccion_archivo, $token)
+function guardarTokenAnexoIII($conn, $egresadoId, $documentoId, $direccion_archivo, $token, bool $duplicarResidencias = true) // JH20250821
 {
     $pendientes = 0;
     $stmt = $conn->prepare("INSERT INTO egresados_documentos (Fk_NumeroControl, Fk_Documentos_Pendientes2, Direccion_Archivo_Egresados_Documentos, Token_Egresado_Documentos, Fecha_Documento_Subido_Egresado_Documentos, Aceptado_Egresado_Documentos) VALUES (?, ?, ?, ?, NOW(), ?) ON DUPLICATE KEY UPDATE Direccion_Archivo_Egresados_Documentos = ?, Token_Egresado_Documentos = ?");
@@ -106,7 +116,9 @@ function guardarTokenAnexoIII($conn, $egresadoId, $documentoId, $direccion_archi
     $stmt->execute();
 
     // Aquí es donde se duplica el archivo para el documentoId 6 o 7
-    if ($documentoId == 6 || $documentoId == 7) {
+    // if ($documentoId == 6 || $documentoId == 7) {
+    // Duplicar 6<->7 SOLO si $duplicarResidencias = true JH20250821
+    if ($duplicarResidencias && ($documentoId == 6 || $documentoId == 7)) {
         $documentoIdOtro = ($documentoId == 6) ? 7 : 6;
         $stmt->bind_param("sississ", $egresadoId, $documentoIdOtro, $direccion_archivo, $token, $pendientes, $direccion_archivo, $token);
         $stmt->execute();
@@ -134,6 +146,12 @@ function verificarDocumentoSubidoEgresado($conn, $usuarioId, $documentoId)
 foreach ($archivos as $inputId => $nombreArchivo) {
     if ($_FILES[$inputId]['error'] === 0) {
         $indice = $asignaciones[$inputId];
+        // Bloquear 6/7 en productos exentos JH20250821
+        if ($esExento && in_array($indice, DOCS_RESIDENCIAS, true)) {
+            $_SESSION['alerta'] = "Este documento ($indice) ya no es requerido para tu modalidad.";
+            header('Location: ../views/cargarDocumentos.php');
+            exit;
+        }
         if (verificarDocumentoSubidoEgresado($conn, $usuario['Num_Control'], $indice)) {
             $_SESSION['alerta'] = "El archivo ya existe en la ruta especificada, no se puede subir más de una vez cada archivo hasta que sea revisado por un coordinador.";
             header('Location: ../views/cargarDocumentos.php');
@@ -144,13 +162,14 @@ foreach ($archivos as $inputId => $nombreArchivo) {
         
         if ($alerta !== "El archivo ya existe en la ruta especificada, no se puede subir más de una vez cada archivo hasta que sea revisado por un coordinador." && $alerta !== "Error al subir el archivo.") {
             // Subir el documento para el $indice actual
-            guardarTokenAnexoIII($conn, $usuario['Num_Control'], $indice, $ruta_archivo, $token);
+            // guardarTokenAnexoIII($conn, $usuario['Num_Control'], $indice, $ruta_archivo, $token);
+            guardarTokenAnexoIII($conn, $usuario['Num_Control'], $indice, $ruta_archivo, $token, !$esExento); // JH20250821
 
             // Si el documento es 6 o 7, subirlo también para el otro
-            if ($indice == 6 || $indice == 7) {
-                $indice_gemelo = ($indice == 6) ? 7 : 6;
-                guardarTokenAnexoIII($conn, $usuario['Num_Control'], $indice_gemelo, $ruta_archivo, $token);
-            }
+            // if ($indice == 6 || $indice == 7) {
+            //     $indice_gemelo = ($indice == 6) ? 7 : 6;
+            //     guardarTokenAnexoIII($conn, $usuario['Num_Control'], $indice_gemelo, $ruta_archivo, $token);
+            // }
 
             $_SESSION['alerta'] = $alerta;
             header('Location: ../views/cargarDocumentos.php');
