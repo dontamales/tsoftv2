@@ -96,7 +96,7 @@ while ($fila = $result->fetch_assoc()) {
     //     'Fecha_Documento_Subido_Egresado_Documentos' => $fila['Fecha_Documento_Subido_Egresado_Documentos'],
     //     'Aceptado_Egresado_Documentos' => $fila['Aceptado_Egresado_Documentos'],
     // );
-
+    
     // Filtra 6/7 si es exento JH20250821
     if (!($esExento && in_array((int)$fila['Id_Documentos_Pendientes'], DOCS_RESIDENCIAS, true))) {
         $egresados[$numControl]['DocumentosPorRevisar'][] = array(

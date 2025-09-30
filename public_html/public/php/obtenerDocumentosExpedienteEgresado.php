@@ -11,8 +11,13 @@ date_default_timezone_set('America/Denver');
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-header('Content-Type: application/json');
-header('Content-Type: application/x-www-form-urlencoded');
+header('Content-Type: application/json; charset=utf-8');  // deja solo JSON
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/php-error.log');         // guarda errores en archivo
+
+
+// header('Content-Type: application/json');
+// header('Content-Type: application/x-www-form-urlencoded');
 
 
 $idUsuario = $_POST['id'];
@@ -68,6 +73,7 @@ while ($fila = $result->fetch_assoc()) {
             'Correo_Usuario' => $fila['Correo_Usuario'],
             'Nombre_Proyecto' => $fila['Nombre_Proyecto'],
             'Nombre_Carrera' => $fila['Nombre_Carrera'],
+            'Id_Tipo_Producto_Titulacion' => (int)($fila['Id_Titulacion'] ?? 0),
             'Tipo_Producto_Titulacion' => $fila['Tipo_Producto_Titulacion'],
             'DocumentosPorRevisar' => array(),
             'DocumentosPendientes' => array(),
@@ -109,6 +115,28 @@ foreach ($egresados as $numControl => &$egresado) {
 
     $egresado['DocumentosTotales'] = $documentosTotales;
 
+    //Documentos Pendientes basados en Id_Tipo_Producto_Titulacion no en el string JH20250921
+    $tipo_titulacion_id = (int)$egresado['Id_Tipo_Producto_Titulacion'];
+    if ($tipo_titulacion_id === 0) {
+        $egresado['DocumentosPendientes'] = [];
+    } else {
+        $stmt_pendientes->bind_param('i', $tipo_titulacion_id);
+        $stmt_pendientes->execute();
+        $result_pendientes = $stmt_pendientes->get_result();
+
+        $documentosPendientes = array();
+        while ($fila_pendientes = $result_pendientes->fetch_assoc()) {
+            $documentosPendientes[] = $fila_pendientes['Descripcion_Documentos_Pendientes'];
+        }
+
+        $diferencias = array_values(array_diff(
+            $documentosPendientes,
+            array_column($egresado['DocumentosTotales'], 'Descripcion_Documentos_Pendientes')
+        ));
+        $egresado['DocumentosPendientes'] = $diferencias;
+    }
+
+    /* Esta parte ya no es necesaria porque se usa el Id_Usuario para todo JH20250921
     //Documentos Pendientes
     $tipo_titulacion = $egresado['Tipo_Producto_Titulacion'];
     $stmt_pendientes->bind_param('i', $tipo_titulacion);
@@ -123,6 +151,7 @@ foreach ($egresados as $numControl => &$egresado) {
     $diferencias = array_values(array_diff($documentosPendientes, array_column($egresado['DocumentosTotales'], 'Descripcion_Documentos_Pendientes')));
 
     $egresado['DocumentosPendientes'] = $diferencias;
+    */
 
     // Filtrar los documentos que aún no han sido aceptados
     $documentosPorRevisarFiltrados = array_values(array_filter($egresado['DocumentosPorRevisar'], function ($documento) {
