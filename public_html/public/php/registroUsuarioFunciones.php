@@ -304,9 +304,9 @@ function registrarUsuario($conn, $fk_roles, $nombres, $apellidos, $correo, $hash
 // Función para registrar usuarios desde un archivo Excel
 function registrarUsuarioExcel($conn, $fk_roles, $nombres, $apellidos, $correo, $hashed_password, $numero_control, $carrera, $promedio, $telefono, $password)
 {
-    if (verificarLimiteCorreo($conn) >= 100) {
-        return ['message' => 'Límite de de 100 correos electrónicos diarios alcanzados', 'status' => false];
-    } else {
+    // if (verificarLimiteCorreo($conn) >= 100) {
+    //     return ['message' => 'Límite de de 100 correos electrónicos diarios alcanzados', 'status' => false];
+    // } else {
         $error = validateForm($fk_roles, $nombres, $apellidos, $correo, $hashed_password, $numero_control, $carrera, $promedio, $telefono);
 
         if ($error === "") {
@@ -368,5 +368,5 @@ function registrarUsuarioExcel($conn, $fk_roles, $nombres, $apellidos, $correo, 
             file_put_contents('../assets/archivos/logs/lista servicios escolares/' . date("Y.m.d") . ' errores de validacion.log', $logEntry, FILE_APPEND);
             return ['message' => 'Error al registrar el usuario.'];
         }
-    }
+    // }
 }
