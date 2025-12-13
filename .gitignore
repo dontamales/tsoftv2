@@ -5,10 +5,16 @@ htdocs.rar
 favicon.ico
 applications.html
 public_html/public/.env
+.env
+
+# Ignorar .env en la carpeta privada raíz
+private/.env
+
 
 # Carpetas
 webalizer/
 xampp/
+db/
 
 #Esta carpeta no se debe eliminar
 public_html/private/config/.env
