@@ -15,6 +15,7 @@ private/.env
 webalizer/
 xampp/
 db/
+private/
 
 #Esta carpeta no se debe eliminar
 public_html/private/config/.env
