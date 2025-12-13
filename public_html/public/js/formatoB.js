@@ -326,7 +326,7 @@ async function cargarCarreras(idInputNumeroControl, idInputCarrera) {
     const numeroControl = document.getElementById(idInputNumeroControl).value;
     const nivel = obtenerNivel(numeroControl);
     const respuesta = await fetch(
-      `../php/obtenerCarreras.php?nivel[]=${nivel.join("&nivel[]=")}`
+      `../../php/obtenerCarreras.php?nivel[]=${nivel.join("&nivel[]=")}`
     );
 
     const carreras = await respuesta.json();
@@ -397,7 +397,7 @@ carreraSelect.addEventListener("change", (event) => {
 
 async function cargarPlanesEstudio() {
   try {
-    const respuesta = await fetch("../php/obtenerPlanesEstudio.php");
+    const respuesta = await fetch("../../php/obtenerPlanesEstudio.php");
     if (!respuesta.ok) {
       throw new Error("Error al cargar los planes de estudio");
     }
@@ -427,7 +427,7 @@ cargarPlanesEstudio();
 async function cargarTipoTitulacion(Id_PlanEstudio) {
   try {
     const respuesta = await fetch(
-      `../php/obtenerTipoTitulacion.php?Id_PlanEstudio=${Id_PlanEstudio}`
+      `../../php/obtenerTipoTitulacion.php?Id_PlanEstudio=${Id_PlanEstudio}`
     );
 
     if (!respuesta.ok) {

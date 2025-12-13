@@ -54,15 +54,28 @@ $cuenta = $conteo['conteo'] ?? 0;
             <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
             <div class="page-header pt-3">
                 <p class="h1">Documentos recibidos</p>
-                <hr><p class="h3" id="correos-restantes">Correos enviados el dia de hoy: <?php echo ($cuenta);?></p>
+                <hr>
+                <p class="h3" id="correos-restantes">Correos enviados el dia de hoy: <?php echo ($cuenta); ?></p>
             </div>
             <hr />
             <div class="row">
-                <div class="col-12 mb-3">
+                <div class="col-8">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Filtrar</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Buscar</span>
                         <input type="text" class="form-control" id="filtro-documentos" aria-label="Filtrar carpeta" aria-describedby="inputGroup-sizing-default">
                     </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="filtro-tipo-documento">Tipo</label>
+                        <select id="selector-documento" class="form-select ">
+                            <option value="">Todos los documentos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+
                     <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped" id="tabla-egresadosDocumentos">
                             <thead>
@@ -101,7 +114,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                 </div>
             </div>
         </main>
-        <hr/>
+        <hr />
 
         <?php echo $footer; ?>
     </div>
@@ -128,7 +141,95 @@ $cuenta = $conteo['conteo'] ?? 0;
 
             obtenerDocumentos().then(generarTabla);
 
-    }
+        }
+    </script>
+    <script type="module">
+        import {
+            obtenerDocumentos
+        } from '../js/documentosPendientes.js';
+
+        const selector = document.getElementById('selector-documento');
+        const cuerpoTabla = document.querySelector('#tabla-egresadosDocumentos tbody');
+
+        // Rellenar el selector con los tipos de documento existentes
+        async function poblarSelector() {
+            const datos = await obtenerDocumentos();
+            const unicos = new Set();
+
+            datos.forEach(row =>
+                row.DocumentosPorRevisar.forEach(d =>
+                    unicos.add(d.Descripcion_Documentos_Pendientes)
+                )
+            );
+
+            unicos.forEach(doc => {
+                const opt = document.createElement('option');
+                opt.value = doc.toLowerCase(); // valor para filtrar
+                opt.textContent = doc; // lo que ve el usuario
+                selector.appendChild(opt);
+            });
+        }
+
+        //Mostrar / ocultar filas según la selección
+        function aplicarFiltro(doc) {
+            const filas = cuerpoTabla.querySelectorAll('tr');
+
+            filas.forEach(fila => {
+                if (!doc) { //Todos los documentos»
+                    fila.style.display = '';
+                    return;
+                }
+
+                //Texto de la columna “Documentos por revisar” de esta fila
+                const textos = [...fila.querySelectorAll('td ul li')]
+                    .map(li => li.textContent.toLowerCase());
+
+                fila.style.display = textos.some(t => t.includes(doc)) ? '' : 'none';
+            });
+        }
+
+        //Inicializar todo cuando cargue la página
+        window.addEventListener('load', async () => {
+            await poblarSelector(); // llena el <select>
+            selector.addEventListener('change', // filtra al cambiar
+                e => aplicarFiltro(e.target.value)
+            );
+        });
+    </script>
+    <!-- filtro por tipo de documento -->
+    <script>
+        /**
+         * Oculta o muestra cada fila según la opción elegida
+         *  – docSel llega en minúsculas
+         *  – la columna “Documentos por revisar” es la nº 9 (contiene <li>)
+         */
+        function filtrarPorDocumento(docSel) {
+            $('#tabla-egresadosDocumentos tbody tr').each(function() {
+                if (!docSel) { // Todos los documentos
+                    $(this).show();
+                    return;
+                }
+
+                // extrae todos los <li> en la 9ª columna de esta fila
+                const coincide = $(this)
+                    .find('td:eq(8) li') // eq(8) ⇒ novena columna (índice 8)
+                    .toArray()
+                    .some(li => li.textContent.toLowerCase().includes(docSel));
+
+                $(this).toggle(coincide); // muestra u oculta
+            });
+        }
+
+        // cuando el usuario cambia el desplegable…
+        $(document).on('change', '#selector-documento', function() {
+            filtrarPorDocumento(this.value.toLowerCase());
+        });
+
+        //    cada vez que generarTabla termina, vuelve a aplicar el filtro activo
+        document.addEventListener('tabla-egresados-cargada', () => {
+            const actual = $('#selector-documento').val() || '';
+            filtrarPorDocumento(actual.toLowerCase());
+        });
     </script>
 
 

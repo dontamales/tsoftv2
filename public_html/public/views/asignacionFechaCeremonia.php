@@ -82,6 +82,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                             </tbody>
                         </table>
                     </div>
+                    <button id="desasignar-fecha" class="btn btn-primary">Desasignar fecha a sustentantes seleccionados</button>
                 </div>
             </div>
             <div class="row">

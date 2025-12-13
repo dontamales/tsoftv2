@@ -8,11 +8,21 @@ require_once "../../private/conexion.php";
 
 date_default_timezone_set('America/Denver');
 
+// Documentos de residencias (los que ya no se piden) JH20251022
+const DOCS_RESIDENCIAS = [6, 7];
+const PRODUCTOS_EXENTOS = [12, 14, 15, 16, 17];
+const FECHA_EXENCION_RESIDENCIAS = '2025-08-15';
+
+
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-header('Content-Type: application/json');
-header('Content-Type: application/x-www-form-urlencoded');
+header('Content-Type: application/json; charset=utf-8');  // deja solo JSON
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/php-error.log');         // guarda errores en archivo
+
+// header('Content-Type: application/json');
+// header('Content-Type: application/x-www-form-urlencoded');
 
 
 $idUsuario = $_POST['id'];
@@ -61,6 +71,11 @@ while ($fila = $result->fetch_assoc()) {
     $numControl = $fila['Num_Control'];
     
     if (!isset($egresados[$numControl])) {
+        $productoId = (int)$fila['Id_Titulacion'];
+        $fechaUsuario = $fila['Fecha_Usuario'];
+    $esExento = in_array($productoId, PRODUCTOS_EXENTOS, true);
+    $fechaExento = $fechaUsuario ? (strtotime($fechaUsuario) > strtotime(FECHA_EXENCION_RESIDENCIAS)) : false;
+        $excluirResidencias = $esExento && $fechaExento;
         $egresados[$numControl] = array(
             'Num_Control' => $fila['Num_Control'],
             'Nombres_Usuario' => $fila['Nombres_Usuario'],
@@ -68,7 +83,10 @@ while ($fila = $result->fetch_assoc()) {
             'Correo_Usuario' => $fila['Correo_Usuario'],
             'Nombre_Proyecto' => $fila['Nombre_Proyecto'],
             'Nombre_Carrera' => $fila['Nombre_Carrera'],
+            'Id_Tipo_Producto_Titulacion' => (int)($fila['Id_Titulacion'] ?? 0),
             'Tipo_Producto_Titulacion' => $fila['Tipo_Producto_Titulacion'],
+            // flag para indicar si se deben excluir los documentos de residencias (6,7)
+            'ExcluirResidencias' => $excluirResidencias,
             'DocumentosPorRevisar' => array(),
             'DocumentosPendientes' => array(),
         );
@@ -92,6 +110,15 @@ foreach ($egresados as $numControl => &$egresado) {
 
     $documentosAprobados = array();
     while ($fila_aceptados = $result_aceptados->fetch_assoc()) {
+        // Asegurarnos de tomar solo los documentos que pertenecen a este Num_Control
+        if (isset($fila_aceptados['Fk_NumeroControl']) && $fila_aceptados['Fk_NumeroControl'] != $numControl) {
+            continue;
+        }
+        $idDoc = (int)$fila_aceptados['Id_Documentos_Pendientes'];
+        // Omitir documentos de residencias si aplica la exención
+        if ($egresado['ExcluirResidencias'] && in_array($idDoc, DOCS_RESIDENCIAS, true)) {
+            continue;
+        }
         $documentosAprobados[] = $fila_aceptados['Descripcion_Documentos_Pendientes'];
     }
 
@@ -104,11 +131,47 @@ foreach ($egresados as $numControl => &$egresado) {
 
     $documentosTotales = array();
     while ($fila_totales_entregados = $result_totales_entregados->fetch_assoc()) {
+        // Filtrar por Num_Control para este egresado
+        if (isset($fila_totales_entregados['Fk_NumeroControl']) && $fila_totales_entregados['Fk_NumeroControl'] != $numControl) {
+            continue;
+        }
+        $idDocTotal = (int)$fila_totales_entregados['Id_Documentos_Pendientes'];
+        // Omitir documentos de residencias si aplica la exención
+        if ($egresado['ExcluirResidencias'] && in_array($idDocTotal, DOCS_RESIDENCIAS, true)) {
+            continue;
+        }
         $documentosTotales[] = $fila_totales_entregados; // Aquí puedes especificar los campos que necesitas
     }
 
     $egresado['DocumentosTotales'] = $documentosTotales;
+    
+    //Documentos Pendientes basados en Id_Tipo_Producto_Titulacion no en el string JH20250921
+    $tipo_titulacion_id = (int)$egresado['Id_Tipo_Producto_Titulacion'];
+    if ($tipo_titulacion_id === 0) {
+        $egresado['DocumentosPendientes'] = [];
+    } else {
+        $stmt_pendientes->bind_param('i', $tipo_titulacion_id);
+        $stmt_pendientes->execute();
+        $result_pendientes = $stmt_pendientes->get_result();
 
+        $documentosPendientes = array();
+        while ($fila_pendientes = $result_pendientes->fetch_assoc()) {
+            $idPend = (int)$fila_pendientes['Id_Documentos_Pendientes'];
+            // Omitir documentos de residencias si aplica la exención
+            if ($egresado['ExcluirResidencias'] && in_array($idPend, DOCS_RESIDENCIAS, true)) {
+                continue;
+            }
+            $documentosPendientes[] = $fila_pendientes['Descripcion_Documentos_Pendientes'];
+        }
+
+        $diferencias = array_values(array_diff(
+            $documentosPendientes,
+            array_column($egresado['DocumentosTotales'], 'Descripcion_Documentos_Pendientes')
+        ));
+        $egresado['DocumentosPendientes'] = $diferencias;
+    }
+
+    /* Esta parte ya no es necesaria porque se usa el Id_Usuario para todo JH20250921
     //Documentos Pendientes
     $tipo_titulacion = $egresado['Tipo_Producto_Titulacion'];
     $stmt_pendientes->bind_param('i', $tipo_titulacion);
@@ -123,10 +186,19 @@ foreach ($egresados as $numControl => &$egresado) {
     $diferencias = array_values(array_diff($documentosPendientes, array_column($egresado['DocumentosTotales'], 'Descripcion_Documentos_Pendientes')));
 
     $egresado['DocumentosPendientes'] = $diferencias;
+    */
 
     // Filtrar los documentos que aún no han sido aceptados
-    $documentosPorRevisarFiltrados = array_values(array_filter($egresado['DocumentosPorRevisar'], function ($documento) {
-        return $documento['Aceptado_Egresado_Documentos'] == 0;
+    $documentosPorRevisarFiltrados = array_values(array_filter($egresado['DocumentosPorRevisar'], function ($documento) use ($egresado) {
+        // Filtrar solo los no aceptados
+        if ($documento['Aceptado_Egresado_Documentos'] != 0) {
+            return false;
+        }
+        // Omitir documentos de residencias si aplica la exención
+        if ($egresado['ExcluirResidencias'] && in_array((int)$documento['Id_Documentos_Pendientes'], DOCS_RESIDENCIAS, true)) {
+            return false;
+        }
+        return true;
     }));
 
     // Si todos los documentos han sido aceptados y no hay documentos pendientes, quitar el egresado de los resultados

@@ -4,6 +4,8 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once "../../private/conexion.php";
 require_once '../vendor/autoload.php';
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
+// require_once 'enviarCorreoFunciones.php';
 require_once 'enviarCorreos.php';
 
 date_default_timezone_set('America/Denver');

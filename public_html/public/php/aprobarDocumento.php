@@ -4,7 +4,15 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 4, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
+// require_once 'enviarCorreoFunciones.php';
 require_once 'enviarCorreos.php';
+
+// Documentos de residencias (los que ya no se piden) JH20250821
+const DOCS_RESIDENCIAS = [6, 7];
+
+// Productos exentos por ID (no requieren 6/7) JH20250821
+const PRODUCTOS_EXENTOS = [12, 14, 15, 16, 17];
 
 date_default_timezone_set('America/Denver');
 
@@ -47,6 +55,10 @@ $stmt->execute();
 $result = $stmt->get_result();
 $egresadoData = $result->fetch_assoc();
 
+// Obtener el ID del producto y verificar si es exento JH20250822
+$productoId = (int)$egresadoData['Fk_Tipo_Titulacion_Egresado'];
+$esExento = in_array($productoId, PRODUCTOS_EXENTOS, true);
+
 //Query para obtener los datos del documento
 $stmt = $conn->prepare("SELECT * FROM documentos_pendientes WHERE Id_Documentos_Pendientes = ?");
 $stmt->bind_param('i', $idDocumento);
@@ -64,7 +76,7 @@ $documentoData = $result->fetch_assoc();
     }
 
     if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] == 5) {
-        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
         // if (verificarLimiteCorreo($conn) >= 100) {
         //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
         //     exit();
@@ -84,8 +96,9 @@ $documentoData = $result->fetch_assoc();
         $result_Estatus = $stmt_Estatus->get_result();
 
         $stmt_Estatus->close();
-    } else if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] =! 5){
-        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+        
+    } else if (($idDocumento == 2 || $idDocumento == 10) && $egresadoData['FK_Estatus_Egresado'] != 5){ //SC 08092025 Cambio de operador =! a != 
+        // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
         // if (verificarLimiteCorreo($conn) >= 100) {
         //     echo json_encode(['success' => false, 'message' => 'Se ha alcanzado el límite de correos enviados por día.']);
         //     exit();
@@ -106,21 +119,65 @@ $documentoData = $result->fetch_assoc();
     }
 
 
-    //Obtén el conteo de documentos requeridos para el tipo de titulación
-    $stmt_req = $conn->prepare("SELECT COUNT(*) as total_required FROM producto_titulacion_documentos_pendientes WHERE Fk_Producto_Titulacion_Documentos_Pendientes = ?");
+    // Obtén el conteo de documentos requeridos para el tipo de titulación
+    // $stmt_req = $conn->prepare("SELECT COUNT(*) as total_required FROM producto_titulacion_documentos_pendientes WHERE Fk_Producto_Titulacion_Documentos_Pendientes = ?");
+    // $stmt_req->bind_param('i', $egresadoData['Fk_Tipo_Titulacion_Egresado']);
+    // $stmt_req->execute();
+    // $result_req = $stmt_req->get_result();
+    // $data_req = $result_req->fetch_assoc();
+    // $total_required = $data_req['total_required'];
+
+    // Obtén el conteo de documentos aceptados del egresado
+    // $stmt_acpt = $conn->prepare("SELECT COUNT(*) as total_accepted FROM egresados_documentos WHERE Aceptado_Egresado_Documentos = 1 AND Fk_NumeroControl = ?");
+    // $stmt_acpt->bind_param('s', $idEgresado);
+    // $stmt_acpt->execute();
+    // $result_acpt = $stmt_acpt->get_result();
+    // $data_acpt = $result_acpt->fetch_assoc();
+    // $total_accepted = $data_acpt['total_accepted'];
+
+    // --- Conteo de requeridos (excluyendo 6/7 si es exento) ---
+    if ($esExento) {
+        $stmt_req = $conn->prepare("
+            SELECT COUNT(*) as total_required
+            FROM producto_titulacion_documentos_pendientes
+            WHERE Fk_Producto_Titulacion_Documentos_Pendientes = ?
+            AND Fk_Documentos_Pendientes NOT IN (6,7)
+        ");
+    } else {
+        $stmt_req = $conn->prepare("
+            SELECT COUNT(*) as total_required
+            FROM producto_titulacion_documentos_pendientes
+            WHERE Fk_Producto_Titulacion_Documentos_Pendientes = ?
+        ");
+    }
     $stmt_req->bind_param('i', $egresadoData['Fk_Tipo_Titulacion_Egresado']);
     $stmt_req->execute();
     $result_req = $stmt_req->get_result();
     $data_req = $result_req->fetch_assoc();
-    $total_required = $data_req['total_required'];
+    $total_required = (int)$data_req['total_required'];
 
-    //Obtén el conteo de documentos aceptados del egresado
-    $stmt_acpt = $conn->prepare("SELECT COUNT(*) as total_accepted FROM egresados_documentos WHERE Aceptado_Egresado_Documentos = 1 AND Fk_NumeroControl = ?");
+    // --- Conteo de aceptados (excluyendo 6/7 si es exento) ---
+    if ($esExento) {
+        $stmt_acpt = $conn->prepare("
+            SELECT COUNT(*) as total_accepted
+            FROM egresados_documentos
+            WHERE Aceptado_Egresado_Documentos = 1
+            AND Fk_NumeroControl = ?
+            AND Fk_Documentos_Pendientes2 NOT IN (6,7)
+        ");
+    } else {
+        $stmt_acpt = $conn->prepare("
+            SELECT COUNT(*) as total_accepted
+            FROM egresados_documentos
+            WHERE Aceptado_Egresado_Documentos = 1
+            AND Fk_NumeroControl = ?
+        ");
+    }
     $stmt_acpt->bind_param('s', $idEgresado);
     $stmt_acpt->execute();
     $result_acpt = $stmt_acpt->get_result();
     $data_acpt = $result_acpt->fetch_assoc();
-    $total_accepted = $data_acpt['total_accepted'];
+    $total_accepted = (int)$data_acpt['total_accepted'];
 
     //Compara los conteos
     if ($total_required == $total_accepted) {
