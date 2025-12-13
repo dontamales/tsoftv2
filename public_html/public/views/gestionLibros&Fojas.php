@@ -331,9 +331,9 @@ $anio = date("Y");
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- ===== Desasignar Foja ===== -->
-                 <!-- HJ20250616 Seccion para desasignar fojas dandole un Libro y Seleccionando una Foja -->
+                <!-- HJ20250616 Seccion para desasignar fojas dandole un Libro y Seleccionando una Foja -->
                 <div class="m-1">
                     <div class="card">
                         <div class="card-header">
@@ -373,6 +373,7 @@ $anio = date("Y");
                     </div>
                 </div>
                 <!-- /Fin Desasignar Foja -->
+                
                 <?php
             endif;
                 ?>

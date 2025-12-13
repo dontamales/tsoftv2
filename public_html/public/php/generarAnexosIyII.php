@@ -4,6 +4,8 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php';
 require_once '../vendor/autoload.php';
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
+// require_once 'enviarCorreoFunciones.php';
 require_once 'enviarCorreos.php';
 require_once 'actualizarEstatusFuncionesFormatoB.php';
 
@@ -16,7 +18,7 @@ use Ramsey\Uuid\Uuid;
 
 
 try {
-    // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+    // Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
     // if (verificarLimiteCorreo($conn) >= 100) {
     //     echo json_encode(['success' => false, 'message' => 'No se ha generado ningún archivo ni se ha enviado ningún correo, se ha alcanzado el límite de 100 correos electrónicos diarios enviados, vuelva a intentarlo mañana.']);
     //     exit;
@@ -147,34 +149,34 @@ try {
         // Estilo de fuente Arial 12
         $fontStyleArial12 = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleArial12->setName('Arial');
-        $fontStyleArial12->setSize(12);
+        $fontStyleArial12->setSize(12);//12
         // Estilo de fuente Arial 12 negrita
         $fontStyleArial12Bold = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleArial12Bold->setBold(true);
         $fontStyleArial12Bold->setName('Arial');
-        $fontStyleArial12Bold->setSize(12);
+        $fontStyleArial12Bold->setSize(12);//12
         // Estilo de fuente Arial 12 cursiva y negrita
         $fontStyleArial12ItalicBold = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleArial12ItalicBold->setItalic(true);
         $fontStyleArial12ItalicBold->setBold(true);
         $fontStyleArial12ItalicBold->setName('Arial');
-        $fontStyleArial12ItalicBold->setSize(12);
+        $fontStyleArial12ItalicBold->setSize(12);//12
         // Estilo de fuente para aplicar subrayado
         $fontStyleArial12BoldUnderlined = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleArial12BoldUnderlined->setUnderline('single');
         $fontStyleArial12BoldUnderlined->setBold(true);
         $fontStyleArial12BoldUnderlined->setName('Arial');
-        $fontStyleArial12BoldUnderlined->setSize(12);
+        $fontStyleArial12BoldUnderlined->setSize(12);//12
         //Estilo de fuente Arial 11 negrita e italica para para los proyectos
         $fontStyleArial11ItalicBold = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleArial11ItalicBold->setName('Arial');
-        $fontStyleArial11ItalicBold->setSize(11);
+        $fontStyleArial11ItalicBold->setSize(9);//11
         $fontStyleArial11ItalicBold->setBold(true);
         $fontStyleArial11ItalicBold->setItalic(true);
         //Estilo de fuente Arial 11 negrita e italica para para los proyectos
         $fontStyleArial7 = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleArial7->setName('Arial');
-        $fontStyleArial7->setSize(7);
+        $fontStyleArial7->setSize(7); //7
         // Estilo para la fuente "Montserrat Medium" con tamaño "9"
         $fontStyleMontserratMedium = new \PhpOffice\PhpWord\Style\Font();
         $fontStyleMontserratMedium->setName('Montserrat Medium');
@@ -212,7 +214,7 @@ try {
                 $egresadoData['Carrera2'] = '';
             }
 
-            $correo_Entrega_Proyecto = 'jesushinojo9@gmail.com'; // Correo de prueba, no lo olvides de cambiar cuando vayas a producción
+            $correo_Entrega_Proyecto = trim($egresadoData['Correo_Proyecto_Departamento']);
 
             // Genera el token
             $uuid = Uuid::uuid4();
@@ -439,7 +441,8 @@ try {
                 $section2->addText('Anexo II', $fontStyleArial16, $paragraphStyle);
                 $section2->addText('Solicitud del estudiante', $fontStyleArial16, $paragraphStyle);
                 $section2->addText("Cd. Juárez, Chih. " . $fechaEnEspanol, $fontStyleArial12Bold, $paragraphStyleRight);
-                $section2->addText("María Yolanda Frausto Villegas", $fontStyleArial12Bold);
+                //$section2->addText("María Yolanda Frausto Villegas", $fontStyleArial12Bold);  SCS 08-06-2025 Cambio de la maestra Yolanda(QEPD) a La maestra Yadira
+                $section2->addText("Yadira Dozal Assmar", $fontStyleArial12Bold);
                 $section2->addText("Jefe de la División de Estudios Profesionales", $fontStyleArial12Bold);
                 $section2->addText("P r e s e n t e.", $fontStyleArial12Bold);
                 $section2->addText('At’n. Tania Guadalupe Ruíz Escobar', $fontStyleArial12Bold, $paragraphStyleRight);
@@ -539,7 +542,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode, [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) { // Cambio de metodo a propiedad $response->statusCode() JH20250626
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
@@ -698,7 +701,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode, [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) { // Cambio de metodo a propiedad $response->statusCode() JH20250626
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
@@ -839,7 +842,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode, [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) { // Cambio de metodo a propiedad $response->statusCode() JH20250626
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);
@@ -981,7 +984,7 @@ try {
                     );
 
                     sleep(2);
-                    if (in_array($response->statusCode, [200, 201, 202])) {
+                    if (in_array($response->statusCode, [200, 201, 202])) { // Cambio de metodo a propiedad $response->statusCode() JH20250626
                         generarTokenYActulizarBD($conn, $egresadoData['Num_Control'], $rutaArchivo, $token);
                         if(!$conn){
                             logMessage("Conexión a la base de datos no disponible para actualizar estatus de " . $egresadoData['Num_Control']);

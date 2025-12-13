@@ -109,6 +109,15 @@ if ($rol == 2) :
             <i class="bi bi-file-earmark-spreadsheet"></i>
             <span>Reporte de eficiencia terminal</span>
             </a>
+            
+            <a 
+            href="reporteAsignacionActasLibros.php"
+            class="list-group-item border-end-0 d-inline-block text-truncate"
+            data-bs-parent="#sidebar">
+            <i class="bi bi-journal-text"></i>
+            <span>Reporte de actas por libro</span>
+            </a>
+            
             <a
             href="gestionLibros&Fojas.php"
             class="list-group-item border-end-0 d-inline-block text-truncate"
@@ -200,6 +209,13 @@ if ($rol == 3) :
             <span>Constancia de sinodalias</span>
             </a>
             <a
+            href="reporteRegistroAutores.php"
+            class="list-group-item border-end-0 d-inline-block text-truncate"
+            data-bs-parent="#sidebar">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>Reporte del registro de autores</span>
+            </a>
+            <a
             href="reporteCohortesGeneracionales.php"
             class="list-group-item border-end-0 d-inline-block text-truncate"
             data-bs-parent="#sidebar">
@@ -248,6 +264,15 @@ if ($rol == 3) :
             <i class="bi bi-shield-exclamation"></i>
             <span>Restablecer contraseña</span>
             </a>
+            
+            <a 
+            href="reporteAsignacionActasLibros.php"
+            class="list-group-item border-end-0 d-inline-block text-truncate"
+            data-bs-parent="#sidebar">
+            <i class="bi bi-journal-text"></i>
+            <span>Reporte de actas por libro</span>
+            </a>
+            
             <a
             href="expedienteEgresados.php"
             class="list-group-item border-end-0 d-inline-block text-truncate"
@@ -358,6 +383,15 @@ if ($rol == 5) :
             <i class="bi bi-file-earmark-spreadsheet"></i>
             <span>Reporte de eficiencia terminal</span>
             </a>
+            
+            <a 
+            href="reporteAsignacionActasLibros.php"
+            class="list-group-item border-end-0 d-inline-block text-truncate"
+            data-bs-parent="#sidebar">
+            <i class="bi bi-journal-text"></i>
+            <span>Reporte de actas por libro</span>
+            </a>
+            
             <a
             href="gestionLibros&Fojas.php"
             class="list-group-item border-end-0 d-inline-block text-truncate"
@@ -399,6 +433,15 @@ if ($rol == 6) :
             <i class="bi bi-file-earmark-spreadsheet"></i>
             <span>Reporte de titulados</span>
             </a>
+            
+            <a 
+            href="reporteAsignacionActasLibros.php"
+            class="list-group-item border-end-0 d-inline-block text-truncate"
+            data-bs-parent="#sidebar">
+            <i class="bi bi-journal-text"></i>
+            <span>Reporte de actas por libro</span>
+            </a>
+            
             <a
             href="expedienteEgresados.php"
             class="list-group-item border-end-0 d-inline-block text-truncate"

@@ -60,7 +60,8 @@ $(document).ready(function() {
           newRow.append($("<td>").text("N/A"));
         }
         newRow.append($("<td>").text(row.Correo_Usuario));
-        newRow.append($("<td>").text(row.Fecha_Usuario));  
+        newRow.append($("<td>").text(row.Fecha_Usuario));
+        
         tbody.append(newRow);
       });
     },
@@ -118,7 +119,6 @@ $("#searchUsuario").keypress(function(e) {
     $("#buscarBtn").click();
   }
 });
-
 
 $("#borrarBtnUsuarios").click(function() {
   // Recolectar los IDs de los usuarios seleccionados

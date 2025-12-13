@@ -86,6 +86,7 @@ if ($datos['Numero_Equipo_Egresados'] == 1) {
 
 }
 
+// En esta parte del código, guardamos los datos de las fojas asignadas al egresado JH20250707
 $datos['Nombre_Formato_Foja'] = $datos['Nombre_Formato_Foja'] ?? null;
 $datos['Direccion_Foja_Asignada'] = $datos['Direccion_Archivo_Formato_Foja'] ?? null;
 

@@ -56,7 +56,7 @@ $cuenta = $conteo['conteo'] ?? 0;
       <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
       <div class="page-header pt-3">
         <p class="h1">Formatos pendientes por aprobar</p>
-        <hr><p class="h3">Correos enviados el día de hoy: <?php echo ($cuenta);?></p>
+        <hr><p class="h3">Correos enviados el dia de hoy: <?php echo ($cuenta);?></p>
       </div>
       <hr />
       <div class="row">

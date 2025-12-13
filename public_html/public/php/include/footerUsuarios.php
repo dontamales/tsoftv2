@@ -28,49 +28,28 @@ $year = date("Y");
 if (session_status() == PHP_SESSION_ACTIVE) {
   $logofooter = '<img class="footer--logo m-2" src="../assets/icons/favicon/favicon-32x32.png" alt="Logo de T-Soft" style="width: 25px;" />';
 } else {
-  $logofooter = '<img class="footer--logo m-2" src="/assets/icons/favicon/favicon-32x32.png" alt="Logo de T-Soft" style="width: 25px;" />';
+  $logofooter = '<img class="footer--logo m-2" src="assets/icons/favicon/favicon-32x32.png" alt="Logo de T-Soft" style="width: 25px;" />';
 }
-//$footer = '<footer class="footer container-fluid text-center bg-light mt-3 border" style="border-color: black;"> 
-$footer = '<footer class="footer container-fluid text-center mt-3"> 
-
-<!--
+$footer = '<footer class="footer container-fluid text-center bg-light mt-3 border" style="border-color: black;"> 
 <div class="row"> 
   <div class="col">
     ' . $logofooter . ' 
   </div>
 </div>
--->
 <div class="row"> 
   <div class="col"> 
-  <!--
     <p class="text-black"><strong>Contacto:</strong></p> 
     <p class="text-black">' . $correoTitulacion . '</p> 
-    <p class="text-black">' . $telefonoTitulacion . '</p>
-  -->
-    <p class="mt-4"><strong>Contacto:</strong><br>
-      ' . $correoTitulacion . '<br>
-      ' . $telefonoTitulacion . '
-    </p>
+    <p class="text-black">' . $telefonoTitulacion . '</p> 
   </div>
-  <div class="col">
-  <!-- 
+  <div class="col"> 
     <p class="text-black"><strong>T-Soft© </strong> de 2022 a ' . $year . '</p>
     <p class="text-black"><strong>Ubicación:</strong></p> 
-    <p class="text-black">' . $ubicacionTitulacion . '</p>
-  -->
-    <p class="mt-4"><strong>T-Soft©</strong> de 2022 a ' . $year . '<br>
-      <strong>Ubicación:</strong><br>
-      ' . $ubicacionTitulacion . '
-    </p>
+    <p class="text-black">' . $ubicacionTitulacion . '</p> 
   </div>
-  <div class="col">
-  <!-- 
+  <div class="col"> 
     <p class="text-black"><strong>Horario de atención:</strong></p> 
-    <p class="text-black">' . $horario . '</p>
-  -->
-    <p class="mt-4"><strong>Horario de atención:</strong><br>
-      ' . $horario . '
-    </p>
+    <p class="text-black">' . $horario . '</p> 
   </div>
 </div>
 </footer>';
