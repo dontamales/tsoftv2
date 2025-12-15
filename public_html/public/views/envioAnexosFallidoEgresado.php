@@ -13,7 +13,7 @@ date_default_timezone_set('America/Denver');
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-//fecha de hoy
+// Fecha de hoy
 $fecha = date("Y-m-d");
 
 $stmt2 = $conn->prepare("SELECT id, fecha, conteo FROM correos_enviados WHERE fecha = ?");
@@ -21,11 +21,9 @@ $stmt2->bind_param("s", $fecha);
 $stmt2->execute();
 $result2 = $stmt2->get_result();
 $conteo = $result2->fetch_assoc();
-
 $stmt2->close();
 
 $cuenta = $conteo['conteo'] ?? 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +32,11 @@ $cuenta = $conteo['conteo'] ?? 0;
 <head>
     <!-- Etiquetas meta, íconos y otros... -->
     <?php echo $meta; ?>
-    <meta name="description" content="Base de estructura" />
+    <meta name="description" content="Egresados con envío de anexo I y II sin éxito" />
     <title>T-Soft - Anexos Creados</title>
     <?php echo $icons; ?>
 
-    <!-- Hojas de estilo... -->
+    <!-- Hojas de estilo -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/pages/baseTsoft.css" />
@@ -52,34 +50,35 @@ $cuenta = $conteo['conteo'] ?? 0;
     <link rel="stylesheet" href="../css/pages/adminDashboard.css">
 </head>
 
-<body class>
+<body>
     <?php echo $header; ?>
 
     <?php echo $menu; ?>
 
     <div class="main-container">
         <main id="mainContent" class="content col ps-md-2 pt-2">
-            <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
-            <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
             <div class="page-header pt-3">
-                <p class="h1 text-center">Egresados con envío de anexo I y II sin éxito</p>
-                <hr><p class="h3">Correos enviados el día de hoy: <?php echo ($cuenta);?></p>
+                <h1>Egresados con envío de anexo I y II sin éxito</h1>
+                <hr>
+                <h3>Correos enviados el día de hoy: <?php echo $cuenta; ?></h3>
             </div>
             <hr />
+
             <div class="row">
                 <div class="col">
                     <div class="table-responsive">
                         <table id="egresadoTable" class="table table-hover table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th> Nombre </th>
+                                    <th>Nombre</th>
                                     <th>Apellidos</th>
                                     <th>Correo</th>
-                                    <th>Numero de Control</th>
+                                    <th>Número de Control</th>
                                     <th>Tipo de titulación</th>
                                     <th>Proyecto</th>
                                     <th>Carrera</th>
-                                    <th>Acciones</th> 
+                                    <th>Acciones</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <!-- Aquí se generará la tabla con datos obtenidos a través de AJAX -->
@@ -98,15 +97,18 @@ $cuenta = $conteo['conteo'] ?? 0;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
-    <!-- Script de AJAX -->
-    <!-- Sidebar JH20250710 -->
+    <!-- Sidebar -->
     <script src="../js/sidebar.js" defer></script>
+
+    <!-- Script de control de sesión -->
     <script>
         window.onunload = function() {
             // Esto es para que cuando se cierre la pestaña, se cierre la sesión
             window.location.replace("../index.php");
         };
     </script>
+
+    <!-- Cargar datos -->
     <script type="module">
         import {
             obtenerEstatus,

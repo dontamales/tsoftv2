@@ -279,9 +279,9 @@ $(document).ready(function () {
         // Llenar la tabla con los resultados actuales
         $.each(resultados, function (index, resultado) {
             var fila = $("<tr>");
-
+            
             // fila.append($("<td>").text(resultado.libro));
-
+            
             // Obtener nombre del libro usando su ID y asignar data-id JH20250701
             var libro = librosDisponibles.find(l => l.idL == resultado.libro);
             var nombreLibro = libro ? libro.nombreL : resultado.libro;
@@ -289,16 +289,16 @@ $(document).ready(function () {
 
             // Obtener nombres de titulaciones
             var titulos = resultado.titulaciones;
-
+            
             // --- Versión anterior ---
-            /*
-            if (Array.isArray(resultado.titulaciones)) {
-                fila.append($("<td>").text(resultado.titulaciones.join(', ')));
-            } else {
-                fila.append($("<td>").text(resultado.titulaciones));
-            }
-            */
-
+            // Verificar si resultado.titulaciones es un array antes de usar join
+            // if (Array.isArray(resultado.titulaciones)) {
+            //     fila.append($("<td>").text(resultado.titulaciones.join(', ')));
+            // } else {
+                 // Si no es un array, mostrar el valor directamente
+            //     fila.append($("<td>").text(resultado.titulaciones));
+            // }
+            
             // Mostrar los nombres legibles y guardar el primer ID como data-id JH20250701
             if (Array.isArray(titulos)) {
                 var nombresTitulaciones = titulos.map(id => {

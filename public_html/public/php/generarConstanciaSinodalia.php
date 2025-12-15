@@ -68,13 +68,12 @@ if (isset($_GET['profesor']) && isset($_GET['folderPath']) && isset($_GET['profe
     ));
 
     //TR20250321 para el tipo de letra del membretado de 2025
-    //Agregar los estilos para el texto normal y el texto en negrita
-    //$fontStyleTimesNewRoman = array('name' => 'Times New Roman', 'size' => 12, 'color' => '000000');
+    // Agregar los estilos para el texto normal y el texto en negrita
+   // $fontStyleTimesNewRoman = array('name' => 'Times New Roman', 'size' => 12, 'color' => '000000');
     //$fontStyleTimesNewRomanBold = array('name' => 'Times New Roman', 'size' => 12, 'color' => '000000', 'bold' => true);
     //$fontStyleTimesNewRomanTiny = array('name' => 'Times New Roman', 'size' => 8, 'color' => '000000');
     //$fontStyleTimesNewRoman = array('name' => 'Times New Roman', 'size' => 12, 'bold' => false, 'italic' => false, 'color' => '000000'); //JH20250514
-
-    // Agregar los estilos para el texto normal y el texto en negrita
+      // Agregar los estilos para el texto normal y el texto en negrita
     $fontStyleNotoSans = array('name' => 'Noto Sans', 'size' => 10, 'color' => '000000');
     $fontStyleNotoSansBold = array('name' => 'Noto Sans', 'size' => 10, 'color' => '000000', 'bold' => true);
     $fontStyleNotoSansTiny = array('name' => 'Noto Sans', 'size' => 8, 'color' => '000000');
@@ -95,58 +94,26 @@ if (isset($_GET['profesor']) && isset($_GET['folderPath']) && isset($_GET['profe
     $textRun->addTextBreak();  // Salto de línea
     $textRun->addText('Por este medio hago constar que el/la C. ', $fontStyleNotoSans, $paragraphStyle);
     $textRun->addText($profesor, $fontStyleNotoSansBold, $paragraphStyle);
-    $textRun->addText(' catedrático/a de este Instituto y de acuerdo a los registros que guarda la División de Estudios Profesionales, participó en los siguientes ', $fontStyleTimesNewRoman, $paragraphStyle);
+    //$textRun->addText(' catedrático/a de este Instituto y de acuerdo a los registros que guarda la División de Estudios Profesionales, participó en los siguientes ', $fontStyleTimesNewRoman, $paragraphStyle);
+    $textRun->addText(' catedrático/a de este Instituto y de acuerdo a los registros que guarda la División de Estudios Profesionales, participó en los siguientes ', $fontStyleNotoSans, $paragraphStyle); //SC20250520 Cambio de fuente a NotoSans
     $textRun->addText('Actos Recepcionales y/o Exámenes Profesionales ', $fontStyleNotoSansBold, $paragraphStyle);
     $textRun->addText('durante el periodo comprendido del ', $fontStyleNotoSans, $paragraphStyle);
 
     //Array de días hasta el treinta
     $dias = array(
-        1 => 'un',
-        2 => 'dos',
-        3 => 'tres',
-        4 => 'cuatro',
-        5 => 'cinco',
-        6 => 'seis',
-        7 => 'siete',
-        8 => 'ocho',
-        9 => 'nueve',
-        10 => 'diez',
-        11 => 'once',
-        12 => 'doce',
-        13 => 'trece',
-        14 => 'catorce',
-        15 => 'quince',
-        16 => 'dieciséis',
-        17 => 'diecisiete',
-        18 => 'dieciocho',
-        19 => 'diecinueve',
-        20 => 'veinte',
-        21 => 'veintiún',
-        22 => 'veintidós',
-        23 => 'veintitrés',
-        24 => 'veinticuatro',
-        25 => 'veinticinco',
-        26 => 'veintiséis',
-        27 => 'veintisiete',
-        28 => 'veintiocho',
-        29 => 'veintinueve',
-        30 => 'treinta',
+        1 => 'un', 2 => 'dos', 3 => 'tres', 4 => 'cuatro', 5 => 'cinco',
+        6 => 'seis', 7 => 'siete', 8 => 'ocho', 9 => 'nueve', 10 => 'diez',
+        11 => 'once', 12 => 'doce', 13 => 'trece', 14 => 'catorce', 15 => 'quince',
+        16 => 'dieciséis', 17 => 'diecisiete', 18 => 'dieciocho', 19 => 'diecinueve', 20 => 'veinte',
+        21 => 'veintiún', 22 => 'veintidós', 23 => 'veintitrés', 24 => 'veinticuatro', 25 => 'veinticinco',
+        26 => 'veintiséis', 27 => 'veintisiete', 28 => 'veintiocho', 29 => 'veintinueve', 30 => 'treinta',
         31 => 'treinta y un'
     );
 
     $meses = array(
-        1 => 'enero',
-        2 => 'febrero',
-        3 => 'marzo',
-        4 => 'abril',
-        5 => 'mayo',
-        6 => 'junio',
-        7 => 'julio',
-        8 => 'agosto',
-        9 => 'septiembre',
-        10 => 'octubre',
-        11 => 'noviembre',
-        12 => 'diciembre'
+        1 => 'enero', 2 => 'febrero', 3 => 'marzo', 4 => 'abril',
+        5 => 'mayo', 6 => 'junio', 7 => 'julio', 8 => 'agosto',
+        9 => 'septiembre', 10 => 'octubre', 11 => 'noviembre', 12 => 'diciembre'
     );
 
     // Función para formatear fechas en español
@@ -154,28 +121,13 @@ if (isset($_GET['profesor']) && isset($_GET['folderPath']) && isset($_GET['profe
     {
 
         $meses = array(
-            1 => 'enero',
-            2 => 'febrero',
-            3 => 'marzo',
-            4 => 'abril',
-            5 => 'mayo',
-            6 => 'junio',
-            7 => 'julio',
-            8 => 'agosto',
-            9 => 'septiembre',
-            10 => 'octubre',
-            11 => 'noviembre',
-            12 => 'diciembre'
+            1 => 'enero', 2 => 'febrero', 3 => 'marzo', 4 => 'abril',
+            5 => 'mayo', 6 => 'junio', 7 => 'julio', 8 => 'agosto',
+            9 => 'septiembre', 10 => 'octubre', 11 => 'noviembre', 12 => 'diciembre'
         );
 
         $diasSemana = array(
-            'domingo',
-            'lunes',
-            'martes',
-            'miércoles',
-            'jueves',
-            'viernes',
-            'sábado'
+            'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
         );
 
         $timestamp = strtotime($fecha);
@@ -356,11 +308,14 @@ if (isset($_GET['profesor']) && isset($_GET['folderPath']) && isset($_GET['profe
     // Cierra la conexión
     $conn->close();
 
-    $_SESSION['mensaje'] = "Reporte generado con éxito.";
+    $_SESSION['mensaje'] = "Reporte generado con éxito."; 
     header('Location: ../views/reporteConstanciaSinodalia.php');
+    
     exit;
 } else {
     $_SESSION['mensaje'] = "Ocurrió un error al generar el reporte.";
     header('Location: ../views/reporteConstanciaSinodalia.php');
+exit;
+
     exit;
 }

@@ -40,7 +40,10 @@ if (
     $fecha_Ingreso_Reporte_Titulados = $_GET['fecha_Ingreso_Reporte_Titulados'];
     $fecha_Egreso_Reporte_Titulados = $_GET['fecha_Egreso_Reporte_Titulados'];
 
+
+    
     // SQL para obtener egresados en ese rango de fechas
+   // SQL para obtener egresados en ese rango de fechas
     //JH20252105 Cambios en la consulta del reporte de titulados
     // proVo.Nombre_Profesor   AS 'Vocal Suplente',
     // proP.Nombre_Profesor    AS 'Presidente',

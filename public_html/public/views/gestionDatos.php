@@ -74,7 +74,7 @@ $cuenta = $conteo['conteo'] ?? 0;
         <div class="page-header pt-3">
           <p class="h1 text-center">Gestión de registros</p>
           <hr>
-          <p class="h3">Correos enviados el día de hoy: <?php echo ($cuenta); ?></p>
+          <p class="h3">Correos enviados el dia de hoy: <?php echo ($cuenta); ?></p>
         </div>
         <hr />
         <?php if (isset($_SESSION['message'])) : ?>
@@ -130,6 +130,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                             <th>Rol</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
+                            <th>No. Control</th> <!-- Nueva columna para buscar en la tabla de usuarios JH20250804 -->
                             <th>Correo</th>
                             <th>Fecha de creación</th>
                           </tr>

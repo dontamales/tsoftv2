@@ -68,7 +68,12 @@ export function generarTabla(data) {
     });
     tdDocumentosPendientes.appendChild(ulPendientes);
     tr.appendChild(tdDocumentosPendientes);
-
+    
+    //SCS   Lista de documentos para filtrar
+    tr.dataset.docsPorRevisar = row.DocumentosPorRevisar
+      .map((d) => d.Descripcion_Documentos_Pendientes.toLowerCase())
+      .join("|");
+      
     const tdDocumentosAceptados = document.createElement("td");
     const ulAceptados = document.createElement("ul");
     row.DocumentosAprobados.forEach((doc) => {

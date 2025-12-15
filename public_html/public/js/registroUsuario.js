@@ -108,7 +108,7 @@ async function cargarCarreras(idInputNumeroControl, idInputCarrera) {
     const numeroControl = document.getElementById(idInputNumeroControl).value;
     const nivel = obtenerNivel(numeroControl);
     const respuesta = await fetch(
-      `../php/obtenerCarreras.php?nivel[]=${nivel.join("&nivel[]=")}`
+      `../../php/obtenerCarreras.php?nivel[]=${nivel.join("&nivel[]=")}`
     );
 
     const carreras = await respuesta.json();

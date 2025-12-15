@@ -11,7 +11,7 @@ $conn->query("SET time_zone='-06:00'");
 
 // Obtener los usuarios de la base de datos
 try {
-    $stmt = $conn->prepare("SELECT Id_Usuario, Fk_Roles_Usuario, Nombres_Usuario, Apellidos_Usuario, Correo_Usuario, Fecha_Usuario, FK_Estatus_Egresado FROM usuario
+    $stmt = $conn->prepare("SELECT Id_Usuario, Fk_Roles_Usuario, Nombres_Usuario, Apellidos_Usuario, Correo_Usuario, Fecha_Usuario, FK_Estatus_Egresado, Num_Control FROM usuario
     LEFT JOIN egresado ON egresado.Fk_Usuario_Egresado = usuario.Id_Usuario
     JOIN roles ON roles.Id_Roles = usuario.Fk_Roles_Usuario
     ORDER BY Fk_Roles_Usuario DESC, Fecha_Usuario DESC");

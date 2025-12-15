@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo'])) {
   $mensajesAlerta = "";
   
   // Obtén el número actual de correos enviados
-  $correosEnviadosAntes = verificarLimiteCorreo($conn);
+  // $correosEnviadosAntes = verificarLimiteCorreo($conn);
 
   // Iterar sobre las filas del archivo Excel
   $respuestas = array();
@@ -183,13 +183,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo'])) {
   }
 
   // Obtén el número final de correos enviados
-  $correosEnviadosDespues = verificarLimiteCorreo($conn);
+  // $correosEnviadosDespues = verificarLimiteCorreo($conn);
 
   // Calcula cuántos correos se enviaron en esta sesión
-  $correosEnviadosEstaSesion = $correosEnviadosDespues - $correosEnviadosAntes;
+  // $correosEnviadosEstaSesion = $correosEnviadosDespues - $correosEnviadosAntes;
 
   // Calcula cuántos correos faltan para alcanzar el límite de 100
-  $correosRestantes = 100 - $correosEnviadosDespues;
+  // $correosRestantes = 100 - $correosEnviadosDespues;
 
   $exitos = array_filter($respuestas, function ($respuesta) {
     return $respuesta['status'] === true;
@@ -203,7 +203,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo'])) {
   $writer->save($outputFileName);
 
   // Redirigir a gestionDatos.php con un mensaje de éxito
-  $_SESSION['success'] = "El archivo se procesó correctamente. <strong> Recuerde que hay un máximo de 100 correos diarios</strong> y después de completar los 100 correos ya no se permite registrar mediante el archivo de Excel por cuestiones de su contraseña.<br /><br /> Usuarios registrados exitosamente: " . count($exitos) . ".<br /> Registros fallidos: " . $fallos . ".<br />Registros duplicados: " . $duplicados .".<br /><br /> Correos enviados en esta sesión: " . $correosEnviadosEstaSesion . ".<br /> Total de correos enviados hoy: " . $correosEnviadosDespues . ".<br /> Total de correos restantes hoy: " . $correosRestantes . ".<br /><br /> Revise el archivo de errores o el de duplicados para más información.";
+  // $_SESSION['success'] = "El archivo se procesó correctamente. <strong> Recuerde que hay un máximo de 100 correos diarios</strong> y después de completar los 100 correos ya no se permite registrar mediante el archivo de Excel por cuestiones de su contraseña.<br /><br /> Usuarios registrados exitosamente: " . count($exitos) . ".<br /> Registros fallidos: " . $fallos . ".<br />Registros duplicados: " . $duplicados .".<br /><br /> Correos enviados en esta sesión: " . $correosEnviadosEstaSesion . ".<br /> Total de correos enviados hoy: " . $correosEnviadosDespues . ".<br /> Total de correos restantes hoy: " . $correosRestantes . ".<br /><br /> Revise el archivo de errores o el de duplicados para más información.";
+  $_SESSION['success'] = "El archivo se procesó correctamente. <br /><br /> Usuarios registrados exitosamente: " . count($exitos) . ".<br /> Registros fallidos: " . $fallos . ".<br />Registros duplicados: " . $duplicados .".<br /><br /> Revise el archivo de errores o el de duplicados para más información.";
   header('Location: ../views/gestionDatos.php');
   exit;
 } else {

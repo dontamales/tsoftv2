@@ -109,6 +109,40 @@ $(document).ready(function () {
       },
     });
   });
+  
+  //Desasginar fecha de ceremonia - SCS09072025
+  $("#desasignar-fecha").click(function (e) {
+  e.preventDefault();
+  var seleccionados = [];
+  $(".select-row:checked").each(function () {
+    seleccionados.push($(this).data("num-control"));
+  });
+
+  if (seleccionados.length === 0) {
+    alert("No se seleccionó ningún registro.");
+    return;
+  }
+
+  $.ajax({
+    url: "../php/desasignarFechaCeremoniaMultiple.php", // URL al archivo PHP de desasignación
+    method: "POST",
+    data: {
+      seleccionados: JSON.stringify(seleccionados)
+    },
+    dataType: "json",
+    success: function (response) {
+      if (response.error) {
+        alert(response.error);
+      } else {
+        actualizarTablaEgresados(); 
+        alert(response.message);    
+      }
+    },
+    error: function (xhr, status, error) {
+      alert("Error en la solicitud a la base de datos");
+    }
+  });
+});
 
   function actualizarTablaEgresados() {
     $.ajax({
