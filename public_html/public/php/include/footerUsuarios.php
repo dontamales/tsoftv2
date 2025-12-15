@@ -30,21 +30,21 @@ $year = date("Y");
 // } else {
 //   $logofooter = '<img class="footer--logo m-2" src="assets/icons/favicon/favicon-32x32.png" alt="Logo de T-Soft" style="width: 25px;" />';
 // }
-$footer = '<footer class="footer container-fluid text-center mt-3 border" "> 
+$footer = '<footer class="footer dashboard-footer container-fluid text-center mt-3"> 
 <div class="row"> 
   <div class="col"> 
-    <p class="text-light"><strong>Contacto:</strong></p> 
-    <p class="text-light">' . $correoTitulacion . '</p> 
-    <p class="text-light">' . $telefonoTitulacion . '</p> 
+    <p class="text-light footer-title">Contacto:</p> 
+    <p class="text-light footer-text">' . $correoTitulacion . '</p> 
+    <p class="text-light footer-text">' . $telefonoTitulacion . '</p> 
   </div>
   <div class="col"> 
-    <p class="text-light"><strong>T-Soft© </strong> de 2022 a ' . $year . '</p>
-    <p class="text-light"><strong>Ubicación:</strong></p> 
-    <p class="text-light">' . $ubicacionTitulacion . '</p> 
+    <p class="text-light footer-title">T-Soft© </strong> de 2022 a ' . $year . '</p>
+    <p class="text-light footer-title">Ubicación:</p> 
+    <p class="text-light footer-text">' . $ubicacionTitulacion . '</p> 
   </div>
   <div class="col"> 
-    <p class="text-light"><strong>Horario de atención:</strong></p> 
-    <p class="text-light">' . $horario . '</p> 
+    <p class="text-light footer-title">Horario de atención:</p> 
+    <p class="text-light footer-text">' . $horario . '</p> 
   </div>
 </div>
 </footer>';

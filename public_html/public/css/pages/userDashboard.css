@@ -13,3 +13,135 @@
 .help-link {
     grid-column: span 2;
 }
+
+/* Estilos para la tabla de documentos */
+.document-list {
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 8px;
+}
+
+.document-list table {
+    margin-bottom: 0;
+}
+
+.document-list thead {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 10;
+}
+
+.document-list thead th {
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+    padding: 12px 15px;
+    font-size: 0.9rem;
+}
+
+.document-list tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.9rem;
+}
+
+.document-list tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.document-list tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Badges de estado */
+.task-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.task-badge.completed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.task-badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.task-badge.urgent {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.task-badge.approved {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Scrollbar personalizada */
+.document-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.document-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.document-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.document-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Asegurar que el footer se vea */
+.dashboard-footer {
+    background-color: var(--footer-bg);
+    color: var(--text-light);
+    padding: 2rem 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.dashboard-body {
+    display: flex;
+    flex: 1;
+}
+
+.dashboard-main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+
+    .document-list thead th,
+    .document-list tbody td {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .task-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+    }
+}
