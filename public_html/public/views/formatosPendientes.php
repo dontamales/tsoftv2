@@ -13,10 +13,9 @@ date_default_timezone_set('America/Denver');
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-
 $formatosPendientes = require_once '../php/tablaFormatoBRev.php';
 
-//fecha de hoy
+// Fecha de hoy
 $fecha = date("Y-m-d");
 
 $stmt2 = $conn->prepare("SELECT id, fecha, conteo FROM correos_enviados WHERE fecha = ?");
@@ -24,14 +23,13 @@ $stmt2->bind_param("s", $fecha);
 $stmt2->execute();
 $result2 = $stmt2->get_result();
 $conteo = $result2->fetch_assoc();
-
 $stmt2->close();
 
 $cuenta = $conteo['conteo'] ?? 0;
 ?>
 
 <!DOCTYPE html>
-<html lang="es-MX"> <!-- LENGUAJE DE LA PÁGINA WEB (PARA TRADUCTORES) -->
+<html lang="es-MX">
 
 <head>
   <!-- Etiquetas meta, íconos y otros... -->
@@ -40,7 +38,7 @@ $cuenta = $conteo['conteo'] ?? 0;
   <title>T-Soft - Formatos pendientes</title>
   <?php echo $icons; ?>
 
-  <!-- Hojas de estilo... -->
+  <!-- Hojas de estilo -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../css/pages/baseTsoft.css" />
@@ -54,20 +52,20 @@ $cuenta = $conteo['conteo'] ?? 0;
   <link rel="stylesheet" href="../css/pages/adminDashboard.css">
 </head>
 
-<body class>
+<body>
   <?php echo $header; ?>
 
   <?php echo $menu; ?>
 
   <div class="main-container">
     <main id="mainContent" class="content col ps-md-2 pt-2">
-      <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
-      <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a> -->
       <div class="page-header pt-3">
-        <p class="h1 text-center">Formatos pendientes por aprobar</p>
-        <hr><p class="h3">Correos enviados el día de hoy: <?php echo ($cuenta);?></p>
+        <h1>Formatos pendientes por aprobar</h1>
+        <hr>
+        <h3>Correos enviados el día de hoy: <?php echo $cuenta; ?></h3>
       </div>
       <hr />
+
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -76,7 +74,7 @@ $cuenta = $conteo['conteo'] ?? 0;
               <div class="d-flex align-items-center">
                 <label for="buscarEgresado" class="m-2">Buscar egresado:</label>
                 <input type="text" id="buscarEgresado" name="buscarEgresado" class="form-control m-1" style="width: auto;" placeholder="Número de control" autocomplete="off">
-                <button type="button" id="buscarEgresadoBtn" name="buscarEgresadoBtn" class="btn btn-primary btn-sm m-1 ">Buscar</button>
+                <button type="button" id="buscarEgresadoBtn" name="buscarEgresadoBtn" class="btn btn-primary btn-sm m-1">Buscar</button>
               </div>
             </div>
             <div class="card-body">
@@ -100,13 +98,13 @@ $cuenta = $conteo['conteo'] ?? 0;
                           <a href="#formato_BRev" class="view-button btn btn-primary btn-sm" data-id="<?php echo $formato['Id_Usuario']; ?>">Ver</a>
                           <a href="#" class="approve-button btn btn-success btn-sm" data-id="<?php echo $formato['Id_Usuario']; ?>">Aprobar</a>
                           <a href="#" class="reject-button btn btn-danger btn-sm" data-id="<?php echo $formato['Id_Usuario']; ?>">Rechazar</a>
-
                         </td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
+
               <div class="row mt-3 justify-content-center">
                 <div class="col-sm-10 text-center">
                   <div class="row justify-content-center">
@@ -118,18 +116,18 @@ $cuenta = $conteo['conteo'] ?? 0;
                   <a href="#tablaDeFormatoB" id="verDiezFormatoBRev" name="verDiezFormatoBRev" class="btn btn-primary btn-lg m-1">Ver 10 formatos</a>
                 </div>
               </div>
-              <div class="col-sm-10 text-center">
-              </div>
             </div>
           </div>
+
           <div class="row pt-2 pb-2">
             <div class="col">
               <div class="card">
                 <div class="card-header">
-                  <h5 class="card-title">Formato B alumno: <?php  ?></h5>
+                  <h5 class="card-title">Formato B alumno:</h5>
                 </div>
                 <div class="card-body">
                   <p class="card-text">Verificar si la información del egresado es correcta, si lo es hay que dar clic en <strong>'Aprobar'</strong>, si algo no tiene sentido o claramente es incorrecto, hay que dar clic en <strong>'Rechazar'</strong>.</p>
+
                   <form id="formato_BRev">
                     <div class="row">
                       <div class="border col-lg-6">
@@ -207,6 +205,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                           </div>
                         </div>
                       </div>
+
                       <div class="border col-lg-6">
                         <h5 class="card-title">Información escolar:</h5>
                         <div class="row mb-3">
@@ -304,6 +303,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                         </div>
                       </div>
                     </div>
+
                     <div class="row justify-content-center mt-2">
                       <h5>Revisión y comentarios:</h5>
                       <div class="col-sm-10 text-center">
@@ -321,11 +321,10 @@ $cuenta = $conteo['conteo'] ?? 0;
             </div>
           </div>
         </div>
-
+      </div>
     </main>
 
     <?php echo $footer; ?>
-
   </div>
 
   <!-- Librerías de JavaScript -->
@@ -333,9 +332,10 @@ $cuenta = $conteo['conteo'] ?? 0;
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
-  <!-- Scripts propios -->
-  <!-- Sidebar JH20250710 -->
+  <!-- Sidebar -->
   <script src="../js/sidebar.js" defer></script>
+
+  <!-- Scripts propios -->
   <script src="../js/cierrePestaña.js"></script>
   <script type="module" src="../js/formatosPendientes.js"></script>
 </body>

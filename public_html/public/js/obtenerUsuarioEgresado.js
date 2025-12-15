@@ -259,7 +259,7 @@ function rellenarFormatoB(datos) {
     newRow1.append($("<td>").text("No hay archivo"));
   }
   tbody1.append(newRow1);
-
+  
   // Mostrar FOJA asignada JH20250707
   const fojaContainer = document.getElementById("fojaAsignadaExpediente");
   fojaContainer.innerHTML = "";

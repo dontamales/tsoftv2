@@ -4,6 +4,14 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 4, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once "../../private/conexion.php";
 
+// Documentos de residencias (los que ya no se piden) JH20250821
+const DOCS_RESIDENCIAS = [6, 7];
+
+// Productos exentos por ID (no requieren 6/7) JH20250821
+const PRODUCTOS_EXENTOS = [12, 14, 15, 16, 17];
+// Fecha límite a partir de la cual aplica la exención de residencias
+const FECHA_EXENCION_RESIDENCIAS = '2025-08-15';
+
 date_default_timezone_set('America/Denver');
 
 // Configuración de la zona horaria para esta sesión de MySQL
@@ -62,7 +70,11 @@ AND egresados_documentos.Fk_NumeroControl = ? ORDER BY egresados_documentos.Acep
 
 while ($fila = $result->fetch_assoc()) {
     $numControl = $fila['Num_Control'];
-    
+    $productoId = (int)$fila['Fk_Tipo_Titulacion_Egresado'];
+    $esExento = in_array($productoId, PRODUCTOS_EXENTOS, true);
+    $fechaUsuario = isset($fila['Fecha_Usuario']) ? $fila['Fecha_Usuario'] : null;
+    $fechaExento = $fechaUsuario ? (strtotime($fechaUsuario) > strtotime(FECHA_EXENCION_RESIDENCIAS)) : false;
+    $excluirResidencias = $esExento && $fechaExento;
     if (!isset($egresados[$numControl])) {
         $egresados[$numControl] = array(
             'Num_Control' => $fila['Num_Control'],
@@ -72,19 +84,40 @@ while ($fila = $result->fetch_assoc()) {
             'Nombre_Proyecto' => $fila['Nombre_Proyecto'],
             'Nombre_Carrera' => $fila['Nombre_Carrera'],
             'Tipo_Producto_Titulacion' => $fila['Tipo_Producto_Titulacion'],
+            'EsExento' => $esExento, // GUARDAR FLAG
+            'ExcluirResidencias' => $excluirResidencias,
             'DocumentosPorRevisar' => array(),
             'DocumentosPendientes' => array(),
         );
+    } else {
+        // Asegura coherencia del flag si llegan múltiples filas
+        $egresados[$numControl]['EsExento'] = $esExento;
+        // Si alguna fila indica que aplica la exención basándose en la fecha, mantenerla
+        if (!empty($excluirResidencias)) {
+            $egresados[$numControl]['ExcluirResidencias'] = true;
+        }
     }
 
-    $egresados[$numControl]['DocumentosPorRevisar'][] = array(
-        'Num_Control' => $fila['Num_Control'],
-        'Id_Documentos_Pendientes' => $fila['Id_Documentos_Pendientes'],
-        'Descripcion_Documentos_Pendientes' => $fila['Descripcion_Documentos_Pendientes'],
-        'Direccion_Archivo_Egresados_Documentos' => $fila['Direccion_Archivo_Egresados_Documentos'],
-        'Fecha_Documento_Subido_Egresado_Documentos' => $fila['Fecha_Documento_Subido_Egresado_Documentos'],
-        'Aceptado_Egresado_Documentos' => $fila['Aceptado_Egresado_Documentos'],
-    );
+    // $egresados[$numControl]['DocumentosPorRevisar'][] = array(
+    //     'Num_Control' => $fila['Num_Control'],
+    //     'Id_Documentos_Pendientes' => $fila['Id_Documentos_Pendientes'],
+    //     'Descripcion_Documentos_Pendientes' => $fila['Descripcion_Documentos_Pendientes'],
+    //     'Direccion_Archivo_Egresados_Documentos' => $fila['Direccion_Archivo_Egresados_Documentos'],
+    //     'Fecha_Documento_Subido_Egresado_Documentos' => $fila['Fecha_Documento_Subido_Egresado_Documentos'],
+    //     'Aceptado_Egresado_Documentos' => $fila['Aceptado_Egresado_Documentos'],
+    // );
+    
+    // Filtra 6/7 si aplica la exención (producto + fecha)
+    if (!($excluirResidencias && in_array((int)$fila['Id_Documentos_Pendientes'], DOCS_RESIDENCIAS, true))) {
+        $egresados[$numControl]['DocumentosPorRevisar'][] = array(
+            'Num_Control' => $fila['Num_Control'],
+            'Id_Documentos_Pendientes' => $fila['Id_Documentos_Pendientes'],
+            'Descripcion_Documentos_Pendientes' => $fila['Descripcion_Documentos_Pendientes'],
+            'Direccion_Archivo_Egresados_Documentos' => $fila['Direccion_Archivo_Egresados_Documentos'],
+            'Fecha_Documento_Subido_Egresado_Documentos' => $fila['Fecha_Documento_Subido_Egresado_Documentos'],
+            'Aceptado_Egresado_Documentos' => $fila['Aceptado_Egresado_Documentos'],
+        );
+    }
 }
 
 foreach ($egresados as $numControl => &$egresado) {
@@ -95,6 +128,11 @@ foreach ($egresados as $numControl => &$egresado) {
 
     $documentosAprobados = array();
     while ($fila_aceptados = $result_aceptados->fetch_assoc()) {
+        $idDoc = (int)$fila_aceptados['Id_Documentos_Pendientes'];
+        // Omitir 6/7 si aplica la exención para este egresado
+        if (!empty($egresado['ExcluirResidencias']) && in_array($idDoc, DOCS_RESIDENCIAS, true)) {
+            continue;
+        }
         $documentosAprobados[] = $fila_aceptados['Descripcion_Documentos_Pendientes'];
     }
 
@@ -107,6 +145,10 @@ foreach ($egresados as $numControl => &$egresado) {
 
     $documentosTotales = array();
     while ($fila_totales_entregados = $result_totales_entregados->fetch_assoc()) {
+        $idDocTotal = (int)$fila_totales_entregados['Id_Documentos_Pendientes'];
+        if (!empty($egresado['ExcluirResidencias']) && in_array($idDocTotal, DOCS_RESIDENCIAS, true)) {
+            continue;
+        }
         $documentosTotales[] = $fila_totales_entregados; // Aquí puedes especificar los campos que necesitas
     }
 
@@ -119,8 +161,13 @@ foreach ($egresados as $numControl => &$egresado) {
     $result_pendientes = $stmt_pendientes->get_result();
 
     $documentosPendientes = array();
+    $esExentoEgresado = !empty($egresado['EsExento']); // <<--- usar flag por egresado
+    $excluirResidenciasEgresado = !empty($egresado['ExcluirResidencias']);
+    
     while ($fila_pendientes = $result_pendientes->fetch_assoc()) {
-        $documentosPendientes[] = $fila_pendientes['Descripcion_Documentos_Pendientes'];
+        if (!($excluirResidenciasEgresado && in_array((int)$fila_pendientes['Id_Documentos_Pendientes'], DOCS_RESIDENCIAS, true))) {
+            $documentosPendientes[] = $fila_pendientes['Descripcion_Documentos_Pendientes'];
+        }
     }
 
     $diferencias = array_values(array_diff($documentosPendientes, array_column($egresado['DocumentosTotales'], 'Descripcion_Documentos_Pendientes')));

@@ -53,27 +53,43 @@ $conn->query("SET time_zone='-06:00'");
       </div>
       <hr />
       <div class="row">
-        <?php
-        if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] === "Reporte generado con éxito.") : ?>
+        <?php if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] === "Reporte generado con éxito.") : ?>
           <div class="alert alert-success" role="alert">
-          <?php
-          echo $_SESSION['mensaje'];
-          unset($_SESSION['mensaje']);  // Eliminar el mensaje de la sesión para que no se muestre nuevamente
+            <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+          </div>
+        <?php endif; ?>
 
-        endif; ?>
-          <?php
-          if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] === "Ocurrió un error al generar el reporte.") : ?>
-            <div class="alert alert-danger" role="alert">
-            <?php
-            echo $_SESSION['mensaje'];
-            unset($_SESSION['mensaje']);  // Eliminar el mensaje de la sesión para que no se muestre nuevamente
-          endif; ?>
-            <br>
+        <?php if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] === "Ocurrió un error al generar el reporte.") : ?>
+          <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+          </div>
+        <?php endif; ?>
 
-            <div class="col-12 mb-3">
+        <!-- Mensaje genérico (info/warning) para casos como: "No hay titulados registrados para el año XXXX" -->
+        <?php if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] !== "Reporte generado con éxito." && $_SESSION['mensaje'] !== "Ocurrió un error al generar el reporte.") : ?>
+          <div class="alert alert-info" role="alert">
+            <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+          </div>
+        <?php endif; ?>
+
+        <div class="col-12 mb-3">
+          <!-- Tabs -->
+          <ul class="nav nav-tabs" id="tabsCohortes" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-archivo" data-bs-toggle="tab" data-bs-target="#panel-archivo" type="button" role="tab">Por archivo de egresados</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-anual" data-bs-toggle="tab" data-bs-target="#panel-anual" type="button" role="tab">Por año de ingreso</button>
+            </li>
+          </ul>
+
+          <div class="tab-content border-start border-end border-bottom p-3">
+
+            <!-- ======= PANEL ARCHIVO ======= -->
+            <div class="tab-pane fade show active" id="panel-archivo" role="tabpanel">
               <div class="card mb-3">
                 <div class="card-header">
-                  <h5 class="card-title">Generación de reporte de cohorte generacional</h5>
+                  <h5 class="card-title">Generación de reporte de cohorte generacional (archivo de egresados)</h5>
                 </div>
                 <div class="card-body">
                   <p class="card-text">En esta sección podrá subirse una lista de egresados de Servicios Escolares para verificar quiénes ya se titularon. <br><br><strong>Para que esto funcione se necesitará modificar previamente el Excel para que en el renglón 1 estén encabezados y partir del renglón 2 en adelante estén los contenidos como se muestran en el siguiente ejemplo:</strong></p>
@@ -101,14 +117,14 @@ $conn->query("SET time_zone='-06:00'");
                   <div class="mb-3">
                     <form id="formato_Periodo_Cohorte" action="../php/generarCohorteGeneracional.php" method="post" enctype="multipart/form-data">
                       <div class="row mb-3">
-                        <label for="formato_Periodo_Cohorte" class="col-sm-2 col-form-label">Excel de egresados:</label>
+                        <label for="archivo_Cohorte_Generacional" class="col-sm-2 col-form-label">Excel de egresados:</label>
                         <div class="col-sm-10">
-                          <input type="file" class="form-control" id="archivo_Cohorte_Generacional" name="archivo_Cohorte_Generacional" accept=".xls,.xlsx" for="formato_Periodo_Cohorte">
+                          <input type="file" class="form-control" id="archivo_Cohorte_Generacional" name="archivo_Cohorte_Generacional" accept=".xls,.xlsx" required>
                         </div>
                       </div>
                       <div class="row m-4 text-center justify-content-center align-items-center">
                         <div class="col">
-                          <input id="btn_Generar_Cohorte" class="btn btn-primary btn-block rounded-pill" name="btn_Generar_Cohorte" type="submit" data-bs-toggle="Generar reporte de cohorte generacional" value="Generar reporte de cohorte generacional" for="formato_Periodo_Cohorte" />
+                          <input id="btn_Generar_Cohorte" class="btn btn-primary btn-block rounded-pill" name="btn_Generar_Cohorte" type="submit" value="Generar reporte de cohorte generacional" />
                         </div>
                       </div>
                     </form>
@@ -129,6 +145,50 @@ $conn->query("SET time_zone='-06:00'");
                 </div>
               </div>
             </div>
+
+            <!-- ======= PANEL ANUAL ======= -->
+            <div class="tab-pane fade" id="panel-anual" role="tabpanel">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <h5 class="card-title">Generación de reporte de titulados por año de ingreso</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Seleccione un año de ingreso para generar el reporte de todos los titulados que ingresaron en ese año.</p>
+                  <div class="mb-3">
+                    <form id="formato_Reporte_Anual" action="../php/generarReporteCohorteAnual.php">
+                      <div class="row mb-3">
+                        <label for="anio_Ingreso_Cohorte" class="col-sm-2 col-form-label">Año de ingreso:</label>
+                        <div class="col-sm-10">
+                          <input type="number" id="anio_Ingreso_Cohorte" name="anio_Ingreso_Cohorte" class="form-control" min="1966" max="<?= date('Y'); ?>" required>
+                        </div>
+                      </div>
+                      <div class="row m-5 text-center justify-content-center align-items-center">
+                        <div class="col"></div>
+                        <div class="col">
+                          <input id="btn_Generar_Reporte_Anual" class="btn btn-primary btn-block rounded-pill" name="btn_Generar_Reporte_Anual" type="submit" value="Generar reporte anual" />
+                        </div>
+                        <div class="col"></div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                    <table class="table table-bordered table-hover table-striped" id="tabla-reporte-anual">
+                      <thead>
+                        <tr>
+                          <th>Reporte No.</th>
+                          <th>Fecha creación</th>
+                          <th>Año de ingreso</th>
+                          <th>Descarga</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </main>
 
     <?php echo $footer; ?>
@@ -146,8 +206,40 @@ $conn->query("SET time_zone='-06:00'");
       // Esto es para que cuando se cierre la pestaña, se cierre la sesión
       window.location.replace("../index.php");
     };
+
+    // Validación del formulario de reporte anual
+    const f = document.getElementById('formato_Reporte_Anual');
+    if (f) {
+      f.addEventListener('submit', e => {
+        const anio = f.querySelector('input[name="anio_Ingreso_Cohorte"]').value;
+        if (!anio) { 
+          e.preventDefault(); 
+          alert('Debes seleccionar un año.'); 
+          return; 
+        }
+      });
+    }
+  </script>
+  <script>
+    // Mantener la pestaña activa según el parámetro 'tab' en la URL
+    (function() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const tab = params.get('tab'); // 'anual' o 'archivo'
+        if (tab === 'anual') {
+          const el = document.querySelector('#tab-anual');
+          if (el) new bootstrap.Tab(el).show();
+        } else if (tab === 'archivo') {
+          const el = document.querySelector('#tab-archivo');
+          if (el) new bootstrap.Tab(el).show();
+        }
+      } catch (e) {
+        // fallthrough silencioso
+      }
+    })();
   </script>
   <script src="../js/obtenerCohortes.js"></script>
+  <script src="../js/obtenerReportesCohorteAnual.js"></script>
 </body>
 
 </html>

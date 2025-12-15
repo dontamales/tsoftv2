@@ -4,6 +4,8 @@ require_once 'auth.php'; #VERIFICACIÓN DE USUARIO ADMINISTRADOR
 require_roles([2, 3, 5]); #VERIFICACIÓN DE USUARIO ADMINISTRATIVO
 require_once '../../private/conexion.php'; #CONEXIÓN A LA BASE DE DATOS
 require_once '../vendor/autoload.php'; #LIBRERÍA SENDGRID
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
+// require_once '../php/enviarCorreoFunciones.php'; #FUNCIONES PARA ENVIAR CORREOS
 require_once '../php/enviarCorreos.php'; #FUNCIONES PARA ENVIAR CORREOS
 
 date_default_timezone_set('America/Denver');
@@ -11,7 +13,7 @@ date_default_timezone_set('America/Denver');
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer
+// Esta parte del código ya no es necesaria, ya que a partir de ahora se enviarán correos electrónicos a través de phpmailer JH20250626
 // if (verificarLimiteCorreo($conn) >= 100) {
 //     $_SESSION['error'] = "Cantidad máxima de correos enviados, intentelo de nuevo el día de mañana.";
 // }

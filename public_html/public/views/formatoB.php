@@ -224,7 +224,7 @@ $conn->query("SET time_zone='-06:00'");
                         <div class="row mb-3">
                           <label for="proyectoFormatoB" class="col-sm-2 col-form-label">Proyecto:</label>
                           <div class="col-sm-10">
-                            <textarea id="proyectoFormatoB" name="proyectoFormatoB" class="form-control" style="resize: none;" rows="4" cols="20" placeholder="Ingrese el nombre completo de su proyecto si su tipo de titulación lo requiere, en el caso de Residencia debe ser tal cual está registrado en el SII, puede validarlo en su Constancia de Terminación"><?php echo isset($usuario['Fk_Proyecto_Egresado']) ? $usuario['Nombre_Proyecto'] : '';?></textarea>
+                            <textarea id="proyectoFormatoB" name="proyectoFormatoB" class="form-control" style="resize: none;" rows="4" cols="20" placeholder="Ingrese el nombre completo de su proyecto si su tipo de titulación lo requiere, en el caso de Residencia debe ser tal cual está registrado en el SII, puede validarlo en su Constancia de Liberación"><?php echo isset($usuario['Fk_Proyecto_Egresado']) ? $usuario['Nombre_Proyecto'] : '';?></textarea>
                           </div>
                         </div>
                         <div class="row mb-3">

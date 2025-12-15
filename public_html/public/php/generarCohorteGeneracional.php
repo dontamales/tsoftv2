@@ -187,12 +187,14 @@ if (
 
     // Redirigir al usuario a la página de gestión de reporte de cohortes generacionales (../views/reporteCohortesGeneracionales.php) con un mensaje de éxito
     $_SESSION['mensaje'] = "Reporte generado con éxito.";
-    header('Location: ../views/reporteCohortesGeneracionales.php');
+    // header('Location: ../views/reporteCohortesGeneracionales.php');
+    header('Location: ../views/reporteCohortesGeneracionales.php?tab=archivo');
     exit;
 } else {
     // Redirigir al usuario a la página de gestión de reporte de cohortes generacionales (../views/reporteCohortesGeneracionales.php) con un mensaje de error
     $_SESSION['mensaje'] = "Ocurrió un error al generar el reporte.";
-    header('Location: ../views/reporteCohortesGeneracionales.php');
+    // header('Location: ../views/reporteCohortesGeneracionales.php');
+    header('Location: ../views/reporteCohortesGeneracionales.php?tab=archivo');
     exit;
 }
 
