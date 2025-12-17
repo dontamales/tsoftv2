@@ -333,3 +333,34 @@
 .calendar-footer a:hover {
   text-decoration: underline;
 }
+
+/* Table Card Style - Tabla con apariencia de card */
+.table-card-style {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.table-card-style .table {
+  margin-bottom: 0;
+}
+
+.table-card-style thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.table-card-style tbody tr:hover {
+  background-color: #f5f5f5;
+  transition: all 0.2s ease;
+}
+
+.table-card-style tbody tr td {
+  vertical-align: middle;
+  padding: 0.75rem;
+}

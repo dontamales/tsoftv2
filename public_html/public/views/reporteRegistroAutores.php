@@ -24,6 +24,15 @@ $conn->query("SET time_zone='-06:00'");
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../css/pages/baseTsoft.css" />
+
+  <!-- CSS Personalizado -->
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components/sidebar.css">
+  <link rel="stylesheet" href="../css/components/cards.css">
+  <link rel="stylesheet" href="../css/components/tables.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/pages/adminDashboard.css">
+
 </head>
 
 <body>
@@ -32,24 +41,23 @@ $conn->query("SET time_zone='-06:00'");
 
   <div class="main-container">
     <main class="content col ps-md-2 pt-2">
-      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none">
-        <i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable
-      </a>
       <div class="page-header pt-3">
-        <p class="h1">Reportes de registro de autores</p>
+        <p class="h1 text-center">Reportes de registro de autores</p>
       </div>
       <hr />
 
       <div class="row">
         <?php if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] === "Reporte generado con éxito.") : ?>
           <div class="alert alert-success" role="alert">
-            <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+            <?php echo $_SESSION['mensaje'];
+            unset($_SESSION['mensaje']); ?>
           </div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['mensaje']) && $_SESSION['mensaje'] === "Ocurrió un error al generar el reporte.") : ?>
           <div class="alert alert-danger" role="alert">
-            <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+            <?php echo $_SESSION['mensaje'];
+            unset($_SESSION['mensaje']); ?>
           </div>
         <?php endif; ?>
 
@@ -97,7 +105,7 @@ $conn->query("SET time_zone='-06:00'");
                       </div>
                     </form>
                   </div>
-                  <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                  <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                     <table class="table table-bordered table-hover table-striped" id="tabla-reporte-individual-autores">
                       <thead>
                         <tr>
@@ -113,7 +121,7 @@ $conn->query("SET time_zone='-06:00'");
                   </div>
                 </div>
               </div>
-            </div>  
+            </div>
             <!-- ======= PANEL GENERAL ======= -->
             <div class="tab-pane fade" id="panel-general" role="tabpanel">
               <div class="card mb-3">
@@ -145,7 +153,7 @@ $conn->query("SET time_zone='-06:00'");
                       </div>
                     </form>
                   </div>
-                  <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                  <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                     <table class="table table-bordered table-hover table-striped" id="tabla-reporte-autores">
                       <thead>
                         <tr>
@@ -174,17 +182,27 @@ $conn->query("SET time_zone='-06:00'");
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    window.onunload = function() { window.location.replace("../index.php"); };
+    window.onunload = function() {
+      window.location.replace("../index.php");
+    };
 
     // Validación simple de fechas para ambos formularios (opcional pero útil)
-    ['formato_Reporte_Autores','formato_Reporte_Individual_Autores'].forEach(id => {
+    ['formato_Reporte_Autores', 'formato_Reporte_Individual_Autores'].forEach(id => {
       const f = document.getElementById(id);
       if (!f) return;
       f.addEventListener('submit', e => {
         const fi = f.querySelector('input[name="fecha_Ingreso_Reporte_Titulados"]').value;
         const ff = f.querySelector('input[name="fecha_Egreso_Reporte_Titulados"]').value;
-        if (!fi || !ff) { e.preventDefault(); alert('Debes seleccionar ambas fechas.'); return; }
-        if (ff < fi)     { e.preventDefault(); alert('La fecha de fin no puede ser anterior a la de inicio.'); return; }
+        if (!fi || !ff) {
+          e.preventDefault();
+          alert('Debes seleccionar ambas fechas.');
+          return;
+        }
+        if (ff < fi) {
+          e.preventDefault();
+          alert('La fecha de fin no puede ser anterior a la de inicio.');
+          return;
+        }
       });
     });
   </script>
@@ -192,5 +210,8 @@ $conn->query("SET time_zone='-06:00'");
   <!-- Scripts propios -->
   <script src="../js/obtenerReporteRegistroAutores.js"></script>
   <script src="../js/obtenerReporteRegistroIndividualAutores.js"></script>
+  <!-- Sidebar -->
+  <script src="../js/sidebar.js" defer></script>
 </body>
+
 </html>

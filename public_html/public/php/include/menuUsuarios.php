@@ -26,7 +26,7 @@ if ($rol == 1) :
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">T-Soft v2.0 © <span id="currentYear">2025</span></p>
+      <p class="sidebar-footer-text">T-Soft © <span id="currentYear">2025</span></p>
     </div>
   </aside>
   ';
@@ -68,7 +68,7 @@ if ($rol == 2) :
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">T-Soft v2.0 © <span id="currentYear">2025</span></p>
+      <p class="sidebar-footer-text">T-Soft © <span id="currentYear">2025</span></p>
     </div>
   </aside>
   ';
@@ -117,7 +117,7 @@ if ($rol == 3) :
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">T-Soft v2.0 © <span id="currentYear">2025</span></p>
+      <p class="sidebar-footer-text">T-Soft © <span id="currentYear">2025</span></p>
     </div>
   </aside>
   ';
@@ -149,7 +149,7 @@ if ($rol == 4) :
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">T-Soft v2.0 © <span id="currentYear">2025</span></p>
+      <p class="sidebar-footer-text">T-Soft © <span id="currentYear">2025</span></p>
     </div>
   </aside>
   ';
@@ -188,7 +188,7 @@ if ($rol == 5) :
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">T-Soft v2.0 © <span id="currentYear">2025</span></p>
+      <p class="sidebar-footer-text">T-Soft © <span id="currentYear">2025</span></p>
     </div>
   </aside>
   ';
@@ -220,7 +220,7 @@ if ($rol == 6) :
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">T-Soft v2.0 © <span id="currentYear">2025</span></p>
+      <p class="sidebar-footer-text">T-Soft © <span id="currentYear">2025</span></p>
     </div>
   </aside>
   ';

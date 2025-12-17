@@ -27,6 +27,11 @@ body {
   flex-direction: column;
 }
 
+/* Evitar desplazamiento horizontal inesperado */
+html, body {
+  overflow-x: hidden;
+}
+
 /* Header */
 .dashboard-header {
   background-color: var(--header-bg);

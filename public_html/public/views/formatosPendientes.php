@@ -60,7 +60,7 @@ $cuenta = $conteo['conteo'] ?? 0;
   <div class="main-container">
     <main id="mainContent" class="content col ps-md-2 pt-2">
       <div class="page-header pt-3">
-        <h1>Formatos pendientes por aprobar</h1>
+        <h1 class="text-center">Formatos pendientes por aprobar</h1>
         <hr>
         <h3>Correos enviados el día de hoy: <?php echo $cuenta; ?></h3>
       </div>

@@ -75,7 +75,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                         <label for="busqueda" class="form-label">Buscar:</label>
                         <input type="text" class="form-control" id="busqueda" placeholder="Ingrese término de búsqueda">
                     </div>
-                    <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                         <table id="ceremonia-table" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>

@@ -58,7 +58,7 @@ $cuenta = $conteo['conteo'] ?? 0;
     <div class="main-container">
         <main id="mainContent" class="content col ps-md-2 pt-2">
             <div class="page-header pt-3">
-                <h1>Documentos recibidos</h1>
+                <h1 class="text-center">Documentos recibidos</h1>
                 <hr>
                 <h3 id="correos-restantes">Correos enviados el día de hoy: <?php echo $cuenta; ?></h3>
             </div>
@@ -82,7 +82,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                 </div>
 
                 <div class="col-12 mb-3">
-                    <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped" id="tabla-egresadosDocumentos">
                             <thead>
                                 <tr>
@@ -103,7 +103,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                         </table>
                     </div>
 
-                    <div class="table-responsive">
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped" id="tabla-documentos">
                             <thead>
                                 <tr>
