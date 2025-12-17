@@ -284,7 +284,7 @@ $conn->query("SET time_zone='-06:00'");
                 <br>
                 <hr>
                 <p class="h2">Anexo II o petición de sinodales</p><br>
-                <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                   <table class="table table-bordered table-hover table-striped" id="tabla-egresadosPeticionSinodalesExp">
                     <thead>
                       <tr>
@@ -303,7 +303,7 @@ $conn->query("SET time_zone='-06:00'");
                 <br>
                 <hr>
                 <p class="h2">Documentos sin enviar, aprobados o pendientes de revisar de sustentante</p><br>
-                <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                   <table class="table table-bordered table-hover table-striped" id="tabla-egresadosDocumentosListaExp">
                     <thead>
                       <tr>
@@ -325,7 +325,7 @@ $conn->query("SET time_zone='-06:00'");
                   <span class="fw-bold">FOJA asignada:</span>
                   <span id="fojaAsignadaExpediente" style="margin-left: 0.5rem;"></span>
                 </div>
-                <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                   <table class="table table-bordered table-hover table-striped" id="tabla-egresadosDocumentosEntregadosExp">
                     <thead>
                       <tr>
@@ -343,7 +343,7 @@ $conn->query("SET time_zone='-06:00'");
                 <br>
                 <hr>
                 <p class="h2">Sinodales del sustentante</p><br>
-                <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                   <table class="table table-bordered table-hover table-striped" id="tabla-egresadoSinodalesExp">
                     <thead>
                       <tr>

@@ -105,7 +105,7 @@ if ($mes_actual >= 1 && $mes_actual <= 6) {
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                                         <table class="table table-bordered table-hover table-striped" id="tabla-eficiencia-terminal">
                                             <thead>
                                                 <tr>

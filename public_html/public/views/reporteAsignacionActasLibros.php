@@ -111,7 +111,7 @@ $conn->query("SET time_zone='-06:00'");
 
                             <hr>
 
-                            <div class="table-responsive mt-4" style="max-height: 33.54rem; overflow-y: auto;">
+                            <div class="table-card-style mt-4" style="max-height: 33.54rem; overflow-y: auto;">
                                 <table class="table table-bordered table-hover table-striped" id="tabla-reporte-actas-libros">
                                     <thead>
                                         <tr>
