@@ -171,6 +171,116 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
                         <i class="bi bi-question-circle"></i>
                         <span>Ayuda</span>
                       </a>
+                      <!-- Modal de Ayuda -->
+                      <div class="modal fade" id="modalAyuda" tabindex="-1" aria-labelledby="modalAyudaLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header" style="background-color: #1F2937; color: white;">
+                              <h5 class="modal-title" id="modalAyudaLabel">
+                                <i class="bi bi-question-circle-fill me-2"></i>Centro de Ayuda
+                              </h5>
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                              <!-- Sección: Contacto -->
+                              <div class="mb-4">
+                                <h6 class="fw-bold text-primary mb-3">
+                                  <i class="bi bi-telephone-fill me-2"></i>Contacto de Coordinación de Titulación
+                                </h6>
+                                <div class="ps-3">
+                                  <p class="mb-2"><strong>Correo electrónico:</strong> coordinacion_titulacion@cdjuarez.tecnm.mx</p>
+                                  <p class="mb-2"><strong>Horario de atención:</strong> Lunes a Viernes, 7:00 - 19:00 hrs</p>
+                                  <p class="mb-0"><strong>Ubicación:</strong> Oficina de titulación en Edificio Guillot</p>
+                                </div>
+                              </div>
+
+                              <hr>
+
+                              <!-- Sección: Pasos del proceso -->
+                              <div class="mb-4">
+                                <h6 class="fw-bold text-primary mb-3">
+                                  <i class="bi bi-list-ol me-2"></i>Proceso de Titulación
+                                </h6>
+                                <div class="ps-3">
+                                  <ol class="mb-0">
+                                    <li class="mb-2"><strong>Llenar Formato B:</strong> Completa y envía tu formato B para iniciar el trámite</li>
+                                    <li class="mb-2"><strong>Esperar aprobación:</strong> Coordinación revisará tu formato (2-3 días hábiles)</li>
+                                    <li class="mb-2"><strong>Recibir Anexo III:</strong> Tu departamento te enviará el anexo III por correo</li>
+                                    <li class="mb-2"><strong>Subir documentos:</strong> Entrega todos los documentos requeridos</li>
+                                    <li class="mb-2"><strong>Realizar pago:</strong> Acude a Coordinación para tu autorización de pago</li>
+                                    <li class="mb-2"><strong>Asignación de fecha:</strong> Se te asignarán sinodales y fecha de ceremonia</li>
+                                    <li class="mb-0"><strong>¡Titulación!</strong> Presenta tu examen profesional</li>
+                                  </ol>
+                                </div>
+                              </div>
+
+                              <hr>
+
+                              <!-- Sección: Problemas comunes -->
+                              <div class="mb-4">
+                                <h6 class="fw-bold text-primary mb-3">
+                                  <i class="bi bi-tools me-2"></i>Solución a Problemas Comunes
+                                </h6>
+                                <div class="accordion accordion-flush" id="accordionProblemas">
+
+                                  <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                        ¿No recibí el correo de mi departamento?
+                                      </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionProblemas">
+                                      <div class="accordion-body">
+                                        Verifica tu carpeta de SPAM. Si han pasado más de 5 días hábiles, contacta directamente a tu departamento académico al correo mostrado en la sección de descripción.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                        ¿Mi Formato B fue rechazado?
+                                      </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionProblemas">
+                                      <div class="accordion-body">
+                                        Revisa cuidadosamente la información que enviaste. Si después de corregir es rechazado nuevamente y estás seguro de que la información es correcta, contacta a Coordinación de Titulación directamente.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                        ¿Cómo subo mis documentos?
+                                      </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionProblemas">
+                                      <div class="accordion-body">
+                                        Ve a la sección "Subir documentos" desde el menú lateral o desde los accesos rápidos. Asegúrate de que los archivos estén en formato PDF y sean legibles.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              <hr>
+
+                              <!-- Sección: Nota importante -->
+                              <div class="alert alert-info mb-0">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <strong>Nota importante:</strong> Mantente al pendiente de tus correos y de esta página para recibir notificaciones sobre tu proceso de titulación.
+                              </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -218,6 +328,18 @@ include '../php/include/footerUsuarios.php'; #FOOTER DE LA PÁGINA
     window.onunload = function() {
       window.location.replace("../index.php");
     };
+  </script>
+  <script>
+    // Script para abrir el modal desde el botón de ayuda
+    document.addEventListener('DOMContentLoaded', function() {
+      // Agregar el atributo data-bs-toggle al botón de ayuda
+      const helpLink = document.querySelector('.help-link');
+      if (helpLink) {
+        helpLink.setAttribute('data-bs-toggle', 'modal');
+        helpLink.setAttribute('data-bs-target', '#modalAyuda');
+        helpLink.href = '#';
+      }
+    });
   </script>
   <script src="../js/obtenerDocumentosDashboard.js"></script>
 </body>
