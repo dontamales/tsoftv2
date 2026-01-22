@@ -165,7 +165,7 @@ $conn->query("SET time_zone='-06:00'");
 
             <!-- Documentos pendientes y Sinodales -->
             <div class="row g-3 mt-3">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="documents-card">
                   <div class="documents-header">
                     <h3 class="documents-title">Documentos pendientes</h3>
@@ -190,7 +190,7 @@ $conn->query("SET time_zone='-06:00'");
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <!-- <div class="col-lg-6">
                 <div class="sinodales-card">
                   <div class="sinodales-header">
                     <h3 class="sinodales-title">Asignación de sinodales</h3>
@@ -204,16 +204,16 @@ $conn->query("SET time_zone='-06:00'");
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody> -->
                         <!-- Se llenará dinámicamente -->
-                      </tbody>
+                      <!-- </tbody>
                     </table>
                   </div>
                   <div class="sinodales-footer">
                     <a href="gestionSinodal.php">Asignar Sinodales</a>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
 
             <!-- Calendario de Próximos Eventos -->
@@ -526,7 +526,7 @@ $conn->query("SET time_zone='-06:00'");
 
             <!-- Documentos y Sinodales -->
             <div class="row g-3 mt-3">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="documents-card">
                   <div class="documents-header">
                     <h3 class="documents-title">Documentos pendientes</h3>
@@ -551,7 +551,7 @@ $conn->query("SET time_zone='-06:00'");
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <!-- <div class="col-lg-6">
                 <div class="sinodales-card">
                   <div class="sinodales-header">
                     <h3 class="sinodales-title">Asignación de sinodales</h3>
@@ -565,16 +565,16 @@ $conn->query("SET time_zone='-06:00'");
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody> -->
                         <!-- Se llenará dinámicamente -->
-                      </tbody>
+                      <!-- </tbody>
                     </table>
                   </div>
                   <div class="sinodales-footer">
                     <a href="gestionSinodal.php">Asignar Sinodales</a>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
