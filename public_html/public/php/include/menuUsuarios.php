@@ -101,6 +101,7 @@ if ($rol == 3) :
           <li><a href="asignacionFechaCeremonia.php"><i class="bi bi-calendar3"></i> Asignación de fechas de ceremonia</a></li>
           <li><a href="actualizarTitulados.php"><i class="bi bi-person-check-fill"></i> Actualizar sustentantes a titulados</a></li>
           <li><a href="reporteConstanciaSinodalia.php"><i class="bi bi-file-earmark-text"></i> Constancia de sinodalias</a></li>
+          <li><a href="reporteRegistroAutores.php"><i class="bi bi-file-earmark-spreadsheet"></i> Reporte de registro de Autores</a></li>
           <li><a href="reporteCohortesGeneracionales.php"><i class="bi bi-file-earmark-spreadsheet"></i> Reporte cohortes generacionales</a></li>
           <li><a href="reporteTitulados.php"><i class="bi bi-file-earmark-spreadsheet"></i> Reporte de titulados</a></li>
           <li><a href="reporteEficienciaTerminal.php"><i class="bi bi-file-earmark-spreadsheet"></i> Reporte de eficiencia terminal</a></li>

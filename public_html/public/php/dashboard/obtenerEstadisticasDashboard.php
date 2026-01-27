@@ -3,9 +3,9 @@ require_once __DIR__ . '/../sesion.php';
 require_once __DIR__ . '/../../../private/conexion.php';
 
 // Evitar que warnings/errores se impriman como HTML y forzar JSON
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../dashboard_errors.log');
+// ini_set('display_errors', 0);
+// ini_set('log_errors', 1);
+// ini_set('error_log', __DIR__ . '/../dashboard_errors.log');
 header('Content-Type: application/json; charset=utf-8');
 
 function _json_error($msg)
@@ -25,9 +25,33 @@ $estadisticas = [];
 // === TRÁMITES PENDIENTES ===
 // Contar egresados con estatus diferente a "Titulado" (estatus 9)
 $stmt = $conn->prepare("
-    SELECT COUNT(*) as total
-    FROM egresado e
-    WHERE e.FK_Estatus_Egresado != 9
+SELECT COUNT(*) AS total
+FROM egresado e
+JOIN usuario u ON e.Fk_Usuario_Egresado = u.Id_Usuario
+WHERE e.FK_Estatus_Egresado != 9
+  AND (
+        -- Semestre actual
+        (
+          YEAR(u.Fecha_Usuario) = YEAR(CURDATE())
+          AND (
+                (MONTH(CURDATE()) BETWEEN 1 AND 6 AND MONTH(u.Fecha_Usuario) BETWEEN 1 AND 6)
+             OR (MONTH(CURDATE()) BETWEEN 7 AND 12 AND MONTH(u.Fecha_Usuario) BETWEEN 7 AND 12)
+              )
+        )
+        -- Semestre anterior
+        OR (
+          (
+            MONTH(CURDATE()) BETWEEN 1 AND 6
+            AND YEAR(u.Fecha_Usuario) = YEAR(CURDATE()) - 1
+            AND MONTH(u.Fecha_Usuario) BETWEEN 7 AND 12
+          )
+          OR (
+            MONTH(CURDATE()) BETWEEN 7 AND 12
+            AND YEAR(u.Fecha_Usuario) = YEAR(CURDATE())
+            AND MONTH(u.Fecha_Usuario) BETWEEN 1 AND 6
+          )
+        )
+      );
 ");
 $stmt->execute();
 $res = null;

@@ -60,7 +60,7 @@ $productoId = (int)$usuario["Fk_Tipo_Titulacion_Egresado"];
 $esExento = in_array($productoId, PRODUCTOS_EXENTOS, true);
 
 if ($esExento) {
-    $documentos = array_values(array_filter($documentos, function($d) {
+    $documentos = array_values(array_filter($documentos, function ($d) {
         return !in_array((int)$d['Id_Documentos_Pendientes'], DOCS_RESIDENCIAS, true);
     }));
 }
@@ -167,7 +167,15 @@ if ($esExento) {
                                             <label for="fileUpload<?= $documentoId; ?>" class="form-label">Seleccionar archivo</label>
                                             <input type="file" class="form-control" id="fileUpload<?= $documentoId; ?>" name="fileUpload<?= $documentoId; ?>" accept=".pdf, .doc, .docx" <?= $documentoSubido ? 'disabled' : ''; ?> required>
                                         </div>
-                                        <button type="submit" class="btn btn-primary" for="form_fileUpload<?= $documentoId; ?>" <?= $documentoSubido ? 'disabled' : ''; ?>>Subir archivo</button>
+                                        <?php if ($documentoSubido): ?>
+                                            <button type="button" class="btn btn-success" disabled>
+                                                <i class="bi bi-check-circle-fill me-2"></i>Archivo subido
+                                            </button>
+                                        <?php else: ?>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-cloud-upload me-2"></i>Subir archivo
+                                            </button>
+                                        <?php endif; ?>
                                     </form>
                                     <p>En esta sección podrá subir su "<?= $descripcionDocumento; ?>".</p>
                                 </div>

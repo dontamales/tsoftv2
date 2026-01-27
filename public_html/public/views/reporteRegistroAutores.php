@@ -40,7 +40,7 @@ $conn->query("SET time_zone='-06:00'");
   <?php echo $menu; ?>
 
   <div class="main-container">
-    <main class="content col ps-md-2 pt-2">
+    <main id="mainContent"class="content col ps-md-2 pt-2">
       <div class="page-header pt-3">
         <p class="h1 text-center">Reportes de registro de autores</p>
       </div>
@@ -186,7 +186,7 @@ $conn->query("SET time_zone='-06:00'");
       window.location.replace("../index.php");
     };
 
-    // Validación simple de fechas para ambos formularios (opcional pero útil)
+    // Validación simple de fechas para ambos formularios
     ['formato_Reporte_Autores', 'formato_Reporte_Individual_Autores'].forEach(id => {
       const f = document.getElementById(id);
       if (!f) return;
@@ -211,7 +211,7 @@ $conn->query("SET time_zone='-06:00'");
   <script src="../js/obtenerReporteRegistroAutores.js"></script>
   <script src="../js/obtenerReporteRegistroIndividualAutores.js"></script>
   <!-- Sidebar -->
-  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/sidebar.js"></script>
 </body>
 
 </html>
