@@ -1,0 +1,120 @@
+/* Variables */
+:root {
+  --header-bg: #1F2937;
+  --footer-bg: #1F2937;
+  --body-bg: #FDF6EC;
+  --button-primary: #3F6B83;
+  --button-secondary: #5A8BA3;
+  --sidebar-bg: #1F2937;
+  --sidebar-text: #fff;
+  --sidebar-hover: #5A8BA3;
+  --sidebar-active: #3F6B83;
+  --text-dark: #333;
+  --text-light: #fff;
+  --border-color: #dee2e6;
+  --card-hover: #f8f9fa;
+}
+
+/* Estilos generales */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--body-bg);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Evitar desplazamiento horizontal inesperado */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Header */
+.dashboard-header {
+  background-color: var(--header-bg);
+  padding: 0.75rem 1rem;
+  color: var(--text-light);
+  z-index: 1030;
+  position: sticky;
+  top: 0;
+}
+
+.logo-container {
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.logo-container span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--header-bg);
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: var(--text-light);
+}
+
+.user-info {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Dashboard Body */
+.dashboard-body {
+  display: flex;
+  flex: 1;
+}
+
+/* Footer */
+.dashboard-footer {
+  background-color: var(--footer-bg);
+  color: var(--text-light);
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.footer-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .dashboard-main.shifted {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .sidebar-toggle.active {
+    left: 20px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .header-title {
+    font-size: 1.2rem;
+  }
+  
+  .dashboard-main {
+    padding: 1.5rem;
+  }
+}

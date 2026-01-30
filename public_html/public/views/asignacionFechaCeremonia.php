@@ -42,6 +42,14 @@ $cuenta = $conteo['conteo'] ?? 0;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/pages/baseTsoft.css" />
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/components/cards.css">
+    <link rel="stylesheet" href="../css/components/tables.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/pages/adminDashboard.css">
 </head>
 
 <body class>
@@ -50,12 +58,13 @@ $cuenta = $conteo['conteo'] ?? 0;
     <?php echo $menu; ?>
 
     <div class="main-container">
-        <main class="content col ps-md-2 pt-2">
-            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none">
+        <main id="mainContent" class="content col ps-md-2 pt-2">
+            <!-- Esta parte ya no es necesaria, por los cambios en la sidebar JH20250710 -->
+            <!-- <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none">
                 <i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable
-            </a>
+            </a> -->
             <div class="page-header pt-3">
-                <p class="h1">Lista de sustentantes con Anexo III aprobado</p>
+                <p class="h1 text-center">Lista de sustentantes con Anexo III aprobado</p>
                 <hr><p class="h3">Correos enviados el dia de hoy: <?php echo ($cuenta);?></p>
             </div>
             <p class="card-text">En esta sección se puede visualizar los sustentantes que ya tienen su anexo III aprobado y por lo tanto, están listos para la asignación de fecha de ceremonia.</p>
@@ -66,7 +75,7 @@ $cuenta = $conteo['conteo'] ?? 0;
                         <label for="busqueda" class="form-label">Buscar:</label>
                         <input type="text" class="form-control" id="busqueda" placeholder="Ingrese término de búsqueda">
                     </div>
-                    <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                         <table id="ceremonia-table" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
@@ -113,6 +122,8 @@ $cuenta = $conteo['conteo'] ?? 0;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts propios -->
+    <!-- Sidebar JH20250710 -->
+    <script src="../js/sidebar.js" defer></script>
     <script>
         window.onunload = function() {
             // Esto es para que cuando se cierre la pestaña, se cierre la sesión

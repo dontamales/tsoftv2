@@ -13,7 +13,7 @@ date_default_timezone_set('America/Denver');
 // Configuración de la zona horaria para esta sesión de MySQL
 $conn->query("SET time_zone='-06:00'");
 
-//fecha de hoy
+// Fecha de hoy
 $fecha = date("Y-m-d");
 
 $stmt2 = $conn->prepare("SELECT id, fecha, conteo FROM correos_enviados WHERE fecha = ?");
@@ -21,7 +21,6 @@ $stmt2->bind_param("s", $fecha);
 $stmt2->execute();
 $result2 = $stmt2->get_result();
 $conteo = $result2->fetch_assoc();
-
 $stmt2->close();
 
 $cuenta = $conteo['conteo'] ?? 0;
@@ -33,15 +32,22 @@ $cuenta = $conteo['conteo'] ?? 0;
 <head>
     <!-- Etiquetas meta, íconos y otros... -->
     <?php echo $meta; ?>
-    <meta name="description" content="Base de estructura" />
+    <meta name="description" content="Gestión de documentos recibidos" />
     <title>T-Soft - Gestión de los documentos</title>
     <?php echo $icons; ?>
 
-    <!-- Hojas de estilo... -->
+    <!-- Hojas de estilo -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/pages/baseTsoft.css" />
-    <!-- Añade un estilo generico -->
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/components/cards.css">
+    <link rel="stylesheet" href="../css/components/tables.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/pages/adminDashboard.css">
 </head>
 
 <body>
@@ -50,14 +56,14 @@ $cuenta = $conteo['conteo'] ?? 0;
     <?php echo $menu; ?>
 
     <div class="main-container">
-        <main class="content col ps-md-2 pt-2">
-            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i>Menú desplegable</a>
+        <main id="mainContent" class="content col ps-md-2 pt-2">
             <div class="page-header pt-3">
-                <p class="h1">Documentos recibidos</p>
+                <h1 class="text-center">Documentos recibidos</h1>
                 <hr>
-                <p class="h3" id="correos-restantes">Correos enviados el dia de hoy: <?php echo ($cuenta); ?></p>
+                <h3 id="correos-restantes">Correos enviados el día de hoy: <?php echo $cuenta; ?></h3>
             </div>
             <hr />
+
             <div class="row">
                 <div class="col-8">
                     <div class="input-group mb-3">
@@ -69,14 +75,14 @@ $cuenta = $conteo['conteo'] ?? 0;
                 <div class="col-4">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="filtro-tipo-documento">Tipo</label>
-                        <select id="selector-documento" class="form-select ">
+                        <select id="selector-documento" class="form-select">
                             <option value="">Todos los documentos</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-12 mb-3">
 
-                    <div class="table-responsive" style="max-height: 33.54rem; overflow-y: auto;">
+                <div class="col-12 mb-3">
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped" id="tabla-egresadosDocumentos">
                             <thead>
                                 <tr>
@@ -96,7 +102,8 @@ $cuenta = $conteo['conteo'] ?? 0;
                             </tbody>
                         </table>
                     </div>
-                    <div class="table-responsive">
+
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
                         <table class="table table-bordered table-hover table-striped" id="tabla-documentos">
                             <thead>
                                 <tr>
@@ -114,8 +121,8 @@ $cuenta = $conteo['conteo'] ?? 0;
                 </div>
             </div>
         </main>
-        <hr />
 
+        <hr />
         <?php echo $footer; ?>
     </div>
 
@@ -124,13 +131,18 @@ $cuenta = $conteo['conteo'] ?? 0;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
-    <!-- Script de AJAX -->
+    <!-- Sidebar -->
+    <script src="../js/sidebar.js" defer></script>
+
+    <!-- Script de control de sesión -->
     <script>
         window.onunload = function() {
             // Esto es para que cuando se cierre la pestaña, se cierre la sesión
             window.location.replace("../index.php");
         };
     </script>
+
+    <!-- Cargar datos iniciales -->
     <script type="module">
         import {
             obtenerDocumentos,
@@ -138,11 +150,11 @@ $cuenta = $conteo['conteo'] ?? 0;
         } from '../js/documentosPendientes.js';
 
         window.onload = function() {
-
             obtenerDocumentos().then(generarTabla);
-
         }
     </script>
+
+    <!-- Poblar selector de documentos -->
     <script type="module">
         import {
             obtenerDocumentos
@@ -164,23 +176,22 @@ $cuenta = $conteo['conteo'] ?? 0;
 
             unicos.forEach(doc => {
                 const opt = document.createElement('option');
-                opt.value = doc.toLowerCase(); // valor para filtrar
-                opt.textContent = doc; // lo que ve el usuario
+                opt.value = doc.toLowerCase();
+                opt.textContent = doc;
                 selector.appendChild(opt);
             });
         }
 
-        //Mostrar / ocultar filas según la selección
+        // Mostrar / ocultar filas según la selección
         function aplicarFiltro(doc) {
             const filas = cuerpoTabla.querySelectorAll('tr');
 
             filas.forEach(fila => {
-                if (!doc) { //Todos los documentos»
+                if (!doc) {
                     fila.style.display = '';
                     return;
                 }
 
-                //Texto de la columna “Documentos por revisar” de esta fila
                 const textos = [...fila.querySelectorAll('td ul li')]
                     .map(li => li.textContent.toLowerCase());
 
@@ -188,51 +199,45 @@ $cuenta = $conteo['conteo'] ?? 0;
             });
         }
 
-        //Inicializar todo cuando cargue la página
+        // Inicializar todo cuando cargue la página
         window.addEventListener('load', async () => {
-            await poblarSelector(); // llena el <select>
-            selector.addEventListener('change', // filtra al cambiar
-                e => aplicarFiltro(e.target.value)
-            );
+            await poblarSelector();
+            selector.addEventListener('change', e => aplicarFiltro(e.target.value));
         });
     </script>
-    <!-- filtro por tipo de documento -->
+
+    <!-- Filtro por tipo de documento con jQuery -->
     <script>
         /**
          * Oculta o muestra cada fila según la opción elegida
-         *  – docSel llega en minúsculas
-         *  – la columna “Documentos por revisar” es la nº 9 (contiene <li>)
          */
         function filtrarPorDocumento(docSel) {
             $('#tabla-egresadosDocumentos tbody tr').each(function() {
-                if (!docSel) { // Todos los documentos
+                if (!docSel) {
                     $(this).show();
                     return;
                 }
 
-                // extrae todos los <li> en la 9ª columna de esta fila
                 const coincide = $(this)
-                    .find('td:eq(8) li') // eq(8) ⇒ novena columna (índice 8)
+                    .find('td:eq(8) li')
                     .toArray()
                     .some(li => li.textContent.toLowerCase().includes(docSel));
 
-                $(this).toggle(coincide); // muestra u oculta
+                $(this).toggle(coincide);
             });
         }
 
-        // cuando el usuario cambia el desplegable…
+        // Cuando el usuario cambia el desplegable
         $(document).on('change', '#selector-documento', function() {
             filtrarPorDocumento(this.value.toLowerCase());
         });
 
-        //    cada vez que generarTabla termina, vuelve a aplicar el filtro activo
+        // Cada vez que generarTabla termina, vuelve a aplicar el filtro activo
         document.addEventListener('tabla-egresados-cargada', () => {
             const actual = $('#selector-documento').val() || '';
             filtrarPorDocumento(actual.toLowerCase());
         });
     </script>
-
-
 </body>
 
 </html>

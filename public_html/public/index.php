@@ -14,7 +14,12 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
             $dashboardUrl = 'views/adminDashboard.php';
             break;
         case "4":
+            $dashboardUrl = 'views/adminDashboard.php';
+            break;
         case "5":
+            $dashboardUrl = 'views/adminDashboard.php';
+            break;
+        case "6":
             $dashboardUrl = 'views/adminDashboard.php';
             break;
     }
