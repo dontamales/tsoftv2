@@ -97,7 +97,7 @@ $cuenta = $conteo['conteo'] ?? 0;
 
             <!-- Card con el formulario -->
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white" style="background-color: #3f6b83;">
                     <h5 class="card-title mb-0">
                         <i class="bi bi-shield-lock me-2"></i>Restablecer contraseña de un usuario
                     </h5>

@@ -78,7 +78,7 @@ $conn->query("SET time_zone='-06:00'");
                     </div>
                 <?php endif ?>
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" style="background-color: #3f6b83; color: white;">
                         <h5 class="card-title">Cambiar super usuario</h5>
                     </div>
                     <div class="card-body">
