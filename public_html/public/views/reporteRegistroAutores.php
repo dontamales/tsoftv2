@@ -40,7 +40,7 @@ $conn->query("SET time_zone='-06:00'");
   <?php echo $menu; ?>
 
   <div class="main-container">
-    <main id="mainContent"class="content col ps-md-2 pt-2">
+    <main id="mainContent" class="content col ps-md-2 pt-2">
       <div class="page-header pt-3">
         <p class="h1 text-center">Reportes de registro de autores</p>
       </div>
