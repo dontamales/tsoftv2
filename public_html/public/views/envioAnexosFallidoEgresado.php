@@ -65,10 +65,10 @@ $cuenta = $conteo['conteo'] ?? 0;
             <hr />
 
             <div class="row">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table id="egresadoTable" class="table table-hover table-striped">
-                            <thead class="thead-dark">
+                <div class="col-12 mb-3">
+                    <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
+                        <table id="egresadoTable" class="table table-bordered table-hover table-striped">
+                            <thead>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellidos</th>

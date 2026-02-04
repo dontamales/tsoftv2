@@ -84,25 +84,26 @@ $conn->query("SET time_zone='-06:00'");
             </div>
 
             <div class="row">
-              <div class="col-12 mb-3" style="max-height: 20rem; overflow-y: auto;">
-                <table class="table table-striped table-bordered table-hover" id="sinodales-table">
-                  <thead>
-                    <tr>
-                      <th>ID Sinodal</th>
-                      <th>Sinodal 1</th>
-                      <th>Sinodal 2</th>
-                      <th>Sinodal 3</th>
-                      <th>Sinodal 4</th>
-                      <th>Proyecto Sinodales</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    require_once "../../private/conexion.php";
+              <div class="col-12 mb-3">
+                <div class="table-card-style" style="max-height: 33.54rem; overflow-y: auto;">
+                  <table class="table table-striped table-bordered table-hover" id="sinodales-table">
+                    <thead>
+                      <tr>
+                        <th>ID Sinodal</th>
+                        <th>Sinodal 1</th>
+                        <th>Sinodal 2</th>
+                        <th>Sinodal 3</th>
+                        <th>Sinodal 4</th>
+                        <th>Proyecto Sinodales</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      require_once "../../private/conexion.php";
 
-                    $nombreBusqueda = isset($_GET['nombreBusqueda']) ? $_GET['nombreBusqueda'] : '';
+                      $nombreBusqueda = isset($_GET['nombreBusqueda']) ? $_GET['nombreBusqueda'] : '';
 
-                    $stmt = $conn->prepare("SELECT
+                      $stmt = $conn->prepare("SELECT
                             a.Id_Sinodal,
                             p1.Nombre_Profesor AS Sinodal1,
                             p2.Nombre_Profesor AS Sinodal2,
@@ -121,28 +122,29 @@ $conn->query("SET time_zone='-06:00'");
                                   p4.Nombre_Profesor LIKE ? OR
                                   pr.Nombre_Proyecto LIKE ?");
 
-                    $param = "%" . $nombreBusqueda . "%";
-                    $stmt->bind_param("sssss", $param, $param, $param, $param, $param);
+                      $param = "%" . $nombreBusqueda . "%";
+                      $stmt->bind_param("sssss", $param, $param, $param, $param, $param);
 
-                    $stmt->execute();
-                    $result = $stmt->get_result();
+                      $stmt->execute();
+                      $result = $stmt->get_result();
 
-                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr>";
-                      echo "<td>" . $row['Id_Sinodal'] . "</td>";
-                      echo "<td>" . $row['Sinodal1'] . "</td>";
-                      echo "<td>" . $row['Sinodal2'] . "</td>";
-                      echo "<td>" . $row['Sinodal3'] . "</td>";
-                      echo "<td>" . $row['Sinodal4'] . "</td>";
-                      echo "<td>" . $row['Nombre_Proyecto'] . "</td>";
-                      echo "</tr>";
-                    }
+                      while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['Id_Sinodal'] . "</td>";
+                        echo "<td>" . $row['Sinodal1'] . "</td>";
+                        echo "<td>" . $row['Sinodal2'] . "</td>";
+                        echo "<td>" . $row['Sinodal3'] . "</td>";
+                        echo "<td>" . $row['Sinodal4'] . "</td>";
+                        echo "<td>" . $row['Nombre_Proyecto'] . "</td>";
+                        echo "</tr>";
+                      }
 
-                    $stmt->close();
-                    $conn->close();
-                    ?>
-                  </tbody>
-                </table>
+                      $stmt->close();
+                      $conn->close();
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
@@ -174,7 +176,7 @@ $conn->query("SET time_zone='-06:00'");
                       <div class="col">
                       </div>
                       <div class="col">
-                        <button type="button" id="generateDocumentButton" class="btn btn-primary mt-2" disabled>Generar Constancia</button> <!-- SC20250520 Cambiar el tipo del boton a button, antes no tenia asi que era SUBMIT y posiblemente se recargaba antes de completar la peticion-->
+                        <button type="button" id="generateDocumentButton" style="background-color: #3f6b83; color:white;" class="btn mt-2" disabled>Generar Constancia</button> <!-- SC20250520 Cambiar el tipo del boton a button, antes no tenia asi que era SUBMIT y posiblemente se recargaba antes de completar la peticion-->
                       </div>
                       <div class="col">
                       </div>
@@ -206,7 +208,7 @@ $conn->query("SET time_zone='-06:00'");
             </div>
           </div>
       </div>
-      
+
 
     </main>
 
@@ -280,10 +282,10 @@ $conn->query("SET time_zone='-06:00'");
         const endDate = document.getElementById("endDate").value;
 
         createFolderAndGenerateDocument(folderPath, selectedTeacher, teacherDropdownValue, startDate, endDate);
-         //SC20250520 Delay de 5 segundos(5000 milisegundos) y refresco de la pagina
-         setTimeout(() => {
-             location.reload();
-         }, 5000);
+        //SC20250520 Delay de 5 segundos(5000 milisegundos) y refresco de la pagina
+        setTimeout(() => {
+          location.reload();
+        }, 5000);
       });
     });
 
@@ -320,7 +322,7 @@ $conn->query("SET time_zone='-06:00'");
       });
 
 
-     
+
       if (response.ok) {
         //console.log("Documento Word generado y guardado en la carpeta.");
         // Agregar aquí la lógica para descargar el archivo generado si lo deseas
