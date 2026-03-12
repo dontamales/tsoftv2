@@ -205,8 +205,8 @@ $conn->query("SET time_zone='-06:00'");
                         </tr>
                       </thead>
                       <tbody> -->
-                        <!-- Se llenará dinámicamente -->
-                      <!-- </tbody>
+              <!-- Se llenará dinámicamente -->
+              <!-- </tbody>
                     </table>
                   </div>
                   <div class="sinodales-footer">
@@ -314,9 +314,9 @@ $conn->query("SET time_zone='-06:00'");
                   <div class="quick-access-body">
                     <div class="row g-3">
                       <div class="col-md-3 col-sm-6">
-                        <a href="gestionDatos.php" class="quick-link">
+                        <a href="expedienteEgresados.php" class="quick-link">
                           <i class="bi bi-person-lines-fill"></i>
-                          <span>Gestión de registros</span>
+                          <span>Expediente de Egresados</span>
                         </a>
                       </div>
                       <div class="col-md-3 col-sm-6">
@@ -329,6 +329,12 @@ $conn->query("SET time_zone='-06:00'");
                         <a href="gestionSinodal.php" class="quick-link">
                           <i class="bi bi-people"></i>
                           <span>Asignar Sinodales</span>
+                        </a>
+                      </div>
+                      <div class="col-md-3 col-sm-6">
+                        <a href="gestionDatos.php" class="quick-link">
+                          <i class="bi bi-person-lines-fill"></i>
+                          <span>Gestión de registros</span>
                         </a>
                       </div>
                       <div class="col-md-3 col-sm-6">
@@ -353,12 +359,6 @@ $conn->query("SET time_zone='-06:00'");
                         <a href="gestionLibros&Fojas.php" class="quick-link">
                           <i class="bi bi-layers"></i>
                           <span>Gestión Fojas</span>
-                        </a>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <a href="gestionVariablesGlobales.php" class="quick-link">
-                          <i class="bi bi-gear"></i>
-                          <span>Configuración</span>
                         </a>
                       </div>
                     </div>
@@ -566,8 +566,8 @@ $conn->query("SET time_zone='-06:00'");
                         </tr>
                       </thead>
                       <tbody> -->
-                        <!-- Se llenará dinámicamente -->
-                      <!-- </tbody>
+              <!-- Se llenará dinámicamente -->
+              <!-- </tbody>
                     </table>
                   </div>
                   <div class="sinodales-footer">
